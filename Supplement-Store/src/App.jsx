@@ -9,6 +9,11 @@ import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import NotFound from './components/NotFound/NotFound'
 import Home from './components/Home/Home'
+import AboutUs from './components/AboutUs/AboutUs'
+import Coaches from './components/Coaches/Coaches'
+import Equipments from './components/Equipments/Equipments'
+import Products from './components/Products/Products'
+import Store from './components/Store/Store'
 
 function App() {
 
@@ -16,7 +21,12 @@ function App() {
     {path: '', element: <Layout />, children: [
       {index: true, element: <Home /> },
       {path: 'login', element: <Login /> },
-      {path: 'register', element: <Register /> },
+      { path: 'register', element: <Register /> },
+      {path: 'aboutUs', element: <AboutUs /> },
+      {path: 'coaches', element: <Coaches /> },
+      {path: 'equipments', element: <Equipments /> },
+      {path: 'products', element: <Products /> },
+      {path: 'store', element: <Store /> },
       { path: '*', element: <NotFound /> },
       ]
     }])
