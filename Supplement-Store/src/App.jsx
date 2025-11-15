@@ -1,14 +1,29 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Layout from './components/Layout/Layout'
+import Login from './components/Login/Login'
+import Register from './components/Register/Register'
+import NotFound from './components/NotFound/NotFound'
+import Home from './components/Home/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  let Paths = createBrowserRouter([
+    {path: '', element: <Layout />, children: [
+      {index: true, element: <Home /> },
+      {path: 'login', element: <Login /> },
+      {path: 'register', element: <Register /> },
+      { path: '*', element: <NotFound /> },
+      ]
+    }])
 
   return (
     <>
-      <h2>Welcome To Graduation Project</h2>
+      <RouterProvider router={Paths}></RouterProvider>
     </>
   )
 }
