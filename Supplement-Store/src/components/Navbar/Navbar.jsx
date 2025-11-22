@@ -41,7 +41,7 @@ export default function Navbar() {
                             <NavLink to={'register'} className="nav-link" >Register</NavLink>
                             </li>
                             <li className="nav-item">
-                            <NavLink to={' '} className="nav-link" >Log Out</NavLink>
+                            <NavLink to={''} className="nav-link" >Log Out</NavLink>
                         </li>
                         </ul>
                     </div>
