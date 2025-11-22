@@ -19,15 +19,15 @@ function App() {
 
   let Paths = createBrowserRouter([
     {path: '', element: <Layout />, children: [
-      {index: true, element: <Home /> },
-      {path: 'login', element: <Login /> },
-      { path: 'register', element: <Register /> },
-      {path: 'aboutUs', element: <AboutUs /> },
-      {path: 'coaches', element: <Coaches /> },
-      {path: 'equipments', element: <Equipments /> },
-      {path: 'products', element: <Products /> },
-      {path: 'store', element: <Store /> },
-      { path: '*', element: <NotFound /> },
+      {index: true, element: <Home/> },
+      {path: 'login', element: <Login/> },
+      {path: 'register', element: <Register/> },
+      {path: 'aboutUs', element: <AboutUs/> },
+      {path: 'coaches', element: <Coaches/> },
+      {path: 'equipments', element: <Equipments/> },
+      {path: 'products', element: <Products/> },
+      {path: 'store', element: <Store/> },
+      { path: '*', element: <NotFound/> },
       ]
     }])
 
