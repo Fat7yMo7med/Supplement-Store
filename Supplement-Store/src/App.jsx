@@ -16,28 +16,34 @@ import Products from './components/Products/Products'
 import Store from './components/Store/Store'
 import EquipmentsDetails from './components/EquipmentsDetails/EquipmentsDetails'
 import ProductDetails from './components/ProductDetails/ProductDetails'
+import CoachDetails from './components/CoachDetails/CoachDetails'
 
 function App() {
 
-  let Paths = createBrowserRouter([
-    {path: '', element: <Layout />, children: [
-      {index: true, element: <Home/> },
-      {path: 'login', element: <Login/> },
-      {path: 'register', element: <Register/> },
-      {path: 'aboutUs', element: <AboutUs/> },
-      {path: 'coaches', element: <Coaches/> },
-      {path: 'equipments', element: <Equipments/> },
-      {path: 'products', element: <Products/> },
-      { path: 'store', element: <Store /> },
-      { path: 'equipmentsDetails', element: <EquipmentsDetails/> },
-      { path: 'productDetails', element: <ProductDetails/> },
-      { path: '*', element: <NotFound/> },
+  const router = createBrowserRouter([
+    {
+      path: '', 
+      element: <Layout />, 
+      children: [
+        { index: true, element: <Home/> },
+        { path: 'login', element: <Login/> },
+        { path: 'register', element: <Register/> },
+        { path: 'aboutUs', element: <AboutUs/> },
+        { path: 'coaches', element: <Coaches/> },
+        { path: 'coach/:id', element: <CoachDetails/> },
+        { path: 'equipments', element: <Equipments/> },
+        { path: 'products', element: <Products/> },
+        { path: 'store', element: <Store /> },
+        { path: 'equipmentsDetails', element: <EquipmentsDetails/> },
+        { path: 'productDetails', element: <ProductDetails/> },
+        { path: '*', element: <NotFound/> },
       ]
-    }])
+    }
+  ])
 
   return (
     <>
-      <RouterProvider router={Paths}></RouterProvider>
+      <RouterProvider router={router} />
     </>
   )
 }

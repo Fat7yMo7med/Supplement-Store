@@ -1,9 +1,231 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function Coaches() {
+function Coaches() {
+  const [coaches] = useState([
+    {
+      id: 1,
+      name: "Ahmed Mohamed",
+      specialty: "Bodybuilding",
+      title: "Professional Bodybuilding Coach",
+      bio: "Certified trainer with 8 years of experience in bodybuilding and fitness. Winner of several local and international championships.",
+      experience: "8+ years experience",
+      clients: "150+ satisfied clients",
+      certifications: "5 championships",
+      image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&h=400&fit=crop&crop=center"
+    },
+    {
+      id: 2,
+      name: "Mohamed Ali",
+      specialty: "Fitness",
+      title: "Fitness and Functional Training Coach",
+      bio: "Certified fitness and functional training specialist. Expert in weight loss exercises and general fitness improvement.",
+      experience: "6+ years experience",
+      clients: "200+ satisfied clients",
+      certifications: "3 certifications",
+      image: "https://plus.unsplash.com/premium_photo-1661898576032-fd26e3409175?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 3,
+      name: "Sameh Khaled",
+      specialty: "Sports Nutrition",
+      title: "Sports Nutrition Specialist",
+      bio: "Certified nutrition specialist with 10 years of experience in sports nutrition. Helps athletes improve performance through balanced nutrition.",
+      experience: "10+ years experience",
+      clients: "300+ satisfied clients",
+      certifications: "7 certifications",
+      image: "https://images.unsplash.com/photo-1758875568932-0eefd3e60090?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 4,
+      name: "Samir Mohamed",
+      specialty: "Sports Rehabilitation",
+      title: "Sports Rehabilitation and Injury Coach",
+      bio: "Certified sports rehabilitation and injury treatment trainer. Helps athletes recover and return to sports safely.",
+      experience: "7+ years experience",
+      clients: "180+ satisfied clients",
+      certifications: "4 certifications",
+      image: "https://plus.unsplash.com/premium_photo-1664301050654-63085cc3c656?q=80&w=1192&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 5,
+      name: "Omar Hassan",
+      specialty: "CrossFit",
+      title: "CrossFit Level 3 Trainer",
+      bio: "CrossFit Level 3 certified trainer with 5 years of experience. Specialized in high-intensity functional training.",
+      experience: "5+ years experience",
+      clients: "120+ satisfied clients",
+      certifications: "6 certifications",
+      image: "https://images.unsplash.com/photo-1551763337-e05b91996d32?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 6,
+      name: "Lina Mahmoud",
+      specialty: "Yoga & Pilates",
+      title: "Yoga and Pilates Instructor",
+      bio: "Certified yoga and pilates instructor with 4 years of experience. Focuses on flexibility, balance, and mental wellness.",
+      experience: "4+ years experience",
+      clients: "90+ satisfied clients",
+      certifications: "4 certifications",
+      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center"
+    },
+    {
+      id: 7,
+      name: "Karim Samy",
+      specialty: "Strength Training",
+      title: "Strength and Conditioning Coach",
+      bio: "Strength and conditioning specialist with 9 years of experience. Works with professional athletes and fitness enthusiasts.",
+      experience: "9+ years experience",
+      clients: "220+ satisfied clients",
+      certifications: "8 certifications",
+      image: "https://images.unsplash.com/photo-1639496908117-6633c4aa9592?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 8,
+      name: "Nour ElDin",
+      specialty: "Cardio Training",
+      title: "Cardio and Endurance Coach",
+      bio: "Cardio and endurance training expert with 6 years of experience. Specializes in marathon training and cardiovascular health.",
+      experience: "6+ years experience",
+      clients: "150+ satisfied clients",
+      certifications: "5 certifications",
+      image: "https://plus.unsplash.com/premium_photo-1661375069014-cade4c4032b4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+  ]);
+
+  const [activeFilter, setActiveFilter] = useState("all");
+  const navigate = useNavigate(); // إضافة useNavigate هنا
+
+  const handleViewProfile = (coachId) => {
+    console.log(`Viewing profile of coach with ID: ${coachId}`);
+    // يمكنك إضافة وظيفة عرض الملف الشخصي هنا
+  };
+
+  const handleBookSession = (coachId) => {
+    navigate(`/coach/${coachId}`); // التوجيه إلى صفحة تفاصيل المدرب
+  };
+
+  const filteredCoaches = activeFilter === "all" 
+    ? coaches 
+    : coaches.filter(coach => 
+        coach.specialty.toLowerCase().includes(activeFilter.toLowerCase())
+      );
+
   return (
-    <div>
-      Coaches
+    <div className="bg-dark text-light min-vh-100 py-5">
+      <div className="container" dir="ltr">
+        {/* Page Header */}
+        <div className="text-center mb-5">
+          <h1 className="text-warning fw-bold mb-3">Our Professional Coaches</h1>
+          <p className="text-light lead">
+            Meet our team of professional coaches who will help you achieve your sports and fitness goals
+          </p>
+        </div>
+
+        {/* Filter Buttons */}
+        <div className="d-flex justify-content-center flex-wrap gap-2 mb-4">
+          <button 
+            className={`btn ${activeFilter === "all" ? "btn-warning" : "btn-outline-warning"}`}
+            onClick={() => setActiveFilter("all")}
+          >
+            All Coaches
+          </button>
+          <button 
+            className={`btn ${activeFilter === "bodybuilding" ? "btn-warning" : "btn-outline-warning"}`}
+            onClick={() => setActiveFilter("bodybuilding")}
+          >
+            Bodybuilding
+          </button>
+          <button 
+            className={`btn ${activeFilter === "fitness" ? "btn-warning" : "btn-outline-warning"}`}
+            onClick={() => setActiveFilter("fitness")}
+          >
+            Fitness
+          </button>
+          <button 
+            className={`btn ${activeFilter === "nutrition" ? "btn-warning" : "btn-outline-warning"}`}
+            onClick={() => setActiveFilter("nutrition")}
+          >
+            Nutrition
+          </button>
+          <button 
+            className={`btn ${activeFilter === "crossfit" ? "btn-warning" : "btn-outline-warning"}`}
+            onClick={() => setActiveFilter("crossfit")}
+          >
+            CrossFit
+          </button>
+        </div>
+
+        {/* Coaches Grid */}
+        <div className="row g-4">
+          {filteredCoaches.map(coach => (
+            <div key={coach.id} className="col-md-6 col-lg-3">
+              <div className="card h-100 shadow border-0 bg-secondary text-light">
+                <div className="position-relative">
+                  <img 
+                    src={coach.image} 
+                    className="card-img-top" 
+                    alt={coach.name}
+                    style={{ height: "250px", objectFit: "cover" }}
+                  />
+                  <span className="position-absolute top-0 start-0 m-2 badge bg-warning text-dark">
+                    {coach.specialty}
+                  </span>
+                </div>
+                
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title text-warning">{coach.name}</h5>
+                  <p className="card-text text-light small">{coach.title}</p>
+                  <p className="card-text flex-grow-1">{coach.bio}</p>
+                  
+                  <div className="border-top border-light py-2 my-2">
+                    <div className="row text-center">
+                      <div className="col-4">
+                        <div className="fw-bold text-warning">{coach.experience.split(' ')[0]}</div>
+                        <small className="text-light">Years Exp</small>
+                      </div>
+                      <div className="col-4">
+                        <div className="fw-bold text-warning">{coach.clients.split(' ')[0]}</div>
+                        <small className="text-light">Clients</small>
+                      </div>
+                      <div className="col-4">
+                        <div className="fw-bold text-warning">{coach.certifications.split(' ')[0]}</div>
+                        <small className="text-light">Achievements</small>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="d-grid gap-2 mt-auto">
+                    <button 
+                      className="btn btn-warning"
+                      onClick={() => handleViewProfile(coach.id)}
+                    >
+                      View Profile
+                    </button>
+                    <button 
+                      className="btn btn-outline-warning"
+                      onClick={() => handleBookSession(coach.id)}
+                    >
+                      Book Session
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* No Results Message */}
+        {filteredCoaches.length === 0 && (
+          <div className="text-center py-5">
+            <h4 className="text-warning">No coaches found</h4>
+            <p className="text-light">Try selecting a different filter</p>
+          </div>
+        )}
+      </div>
     </div>
-  )
+  );
 }
+
+export default Coaches;
