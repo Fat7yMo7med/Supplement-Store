@@ -48,6 +48,50 @@ function Coaches() {
       certifications: "4 certifications",
       image: "https://plus.unsplash.com/premium_photo-1664301050654-63085cc3c656?q=80&w=1192&auto=format&fit=crop"
     },
+    {
+      id: 5,
+      name: "Omar Hassan",
+      specialty: "CrossFit",
+      title: "CrossFit Level 3 Trainer",
+      bio: "CrossFit Level 3 certified trainer with 5 years of experience. Specialized in high-intensity functional training.",
+      experience: "5+ years experience",
+      clients: "120+ satisfied clients",
+      certifications: "6 certifications",
+      image: "https://images.unsplash.com/photo-1551763337-e05b91996d32?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 6,
+      name: "Lina Mahmoud",
+      specialty: "Yoga & Pilates",
+      title: "Yoga and Pilates Instructor",
+      bio: "Certified yoga and pilates instructor with 4 years of experience. Focuses on flexibility, balance, and mental wellness.",
+      experience: "4+ years experience",
+      clients: "90+ satisfied clients",
+      certifications: "4 certifications",
+      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center"
+    },
+    {
+      id: 7,
+      name: "Karim Samy",
+      specialty: "Strength Training",
+      title: "Strength and Conditioning Coach",
+      bio: "Strength and conditioning specialist with 9 years of experience. Works with professional athletes and fitness enthusiasts.",
+      experience: "9+ years experience",
+      clients: "220+ satisfied clients",
+      certifications: "8 certifications",
+      image: "https://images.unsplash.com/photo-1639496908117-6633c4aa9592?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      id: 8,
+      name: "Nour ElDin",
+      specialty: "Cardio Training",
+      title: "Cardio and Endurance Coach",
+      bio: "Cardio and endurance training expert with 6 years of experience. Specializes in marathon training and cardiovascular health.",
+      experience: "6+ years experience",
+      clients: "150+ satisfied clients",
+      certifications: "5 certifications",
+      image: "https://plus.unsplash.com/premium_photo-1661375069014-cade4c4032b4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
   ]);
 
   const [activeFilter, setActiveFilter] = useState("all");
