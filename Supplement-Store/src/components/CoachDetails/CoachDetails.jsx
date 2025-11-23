@@ -6,7 +6,6 @@ function CoachDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  // بيانات المدربين الكاملة
   const coaches = [
     {
       id: 1,
@@ -140,17 +139,15 @@ function CoachDetails() {
 
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
-
-  // العثور على المدرب المحدد
   const coach = coaches.find(c => c.id === parseInt(id));
 
   if (!coach) {
     return (
       <div className="bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
         <div className="text-center">
-          <h2 className="text-warning">Coach Not Found</h2>
+          <h2 style={{ color: '#00e5ff' }}>Coach Not Found</h2>
           <button 
-            className="btn btn-warning mt-3"
+            className="btn btn-cyan mt-3"
             onClick={() => navigate('/coaches')}
           >
             Back to Coaches
@@ -163,7 +160,6 @@ function CoachDetails() {
   const handleBooking = () => {
     if (selectedDate && selectedTime) {
       alert(`Session booked with ${coach.name} on ${selectedDate} at ${selectedTime}`);
-      // هنا يمكنك إضافة منطق حجز الجلسة الفعلي
     } else {
       alert("Please select both date and time");
     }
@@ -171,17 +167,42 @@ function CoachDetails() {
 
   return (
     <div className="bg-dark text-light min-vh-100 py-5">
+      <style>{`
+        .btn-cyan {
+          background-color: #00e5ff !important;
+          color: #0f172a !important;
+          font-weight: bold;
+          transition: 0.3s;
+        }
+        .btn-cyan:hover {
+          box-shadow: 0 0 10px #00e5ff;
+        }
+        .badge-cyan {
+          background-color: #00e5ff;
+          color: #0f172a;
+          font-weight: bold;
+        }
+        .text-cyan {
+          color: #00e5ff !important;
+        }
+        .form-control-glow:focus, .form-select-glow:focus {
+          border-color: #00e5ff;
+          box-shadow: 0 0 8px #00e5ff;
+          background-color: #1e293b;
+          color: #ffffff;
+        }
+      `}</style>
+
       <div className="container">
-        {/* التصحيح هنا - تغيير المسار إلى '/coaches' */}
         <button 
-          className="btn btn-outline-warning mb-4"
+          className="btn btn-outline-cyan mb-4"
           onClick={() => navigate('/coaches')}
+          style={{ borderColor: '#00e5ff', color: '#00e5ff' }}
         >
           ← Back to Coaches
         </button>
 
         <div className="row">
-          {/* معلومات المدرب */}
           <div className="col-md-6">
             <div className="card bg-secondary text-light shadow border-0 h-100">
               <div className="row g-0 h-100">
@@ -195,23 +216,23 @@ function CoachDetails() {
                 </div>
                 <div className="col-md-7">
                   <div className="card-body d-flex flex-column h-100">
-                    <span className="badge bg-warning text-dark mb-2 align-self-start">{coach.specialty}</span>
-                    <h3 className="card-title text-warning">{coach.name}</h3>
+                    <span className="badge badge-cyan mb-2 align-self-start">{coach.specialty}</span>
+                    <h3 className="card-title text-cyan">{coach.name}</h3>
                     <h6 className="card-subtitle mb-2 text-light">{coach.title}</h6>
                     <p className="card-text flex-grow-1">{coach.bio}</p>
                     
                     <div className="mt-auto">
                       <div className="row text-center border-top border-light pt-3">
                         <div className="col-4">
-                          <div className="fw-bold text-warning">{coach.experience.split(' ')[0]}</div>
+                          <div className="fw-bold text-cyan">{coach.experience.split(' ')[0]}</div>
                           <small className="text-light">Years Exp</small>
                         </div>
                         <div className="col-4">
-                          <div className="fw-bold text-warning">{coach.clients.split(' ')[0]}</div>
+                          <div className="fw-bold text-cyan">{coach.clients.split(' ')[0]}</div>
                           <small className="text-light">Clients</small>
                         </div>
                         <div className="col-4">
-                          <div className="fw-bold text-warning">{coach.certifications.split(' ')[0]}</div>
+                          <div className="fw-bold text-cyan">{coach.certifications.split(' ')[0]}</div>
                           <small className="text-light">Achievements</small>
                         </div>
                       </div>
@@ -222,21 +243,20 @@ function CoachDetails() {
             </div>
           </div>
 
-          {/* نموذج الحجز */}
           <div className="col-md-6">
             <div className="card bg-secondary text-light shadow border-0 h-100">
             <div className="card-body">
-                <h4 className="card-title text-warning mb-4">Book a Session</h4>
+                <h4 className="card-title text-cyan mb-4">Book a Session</h4>
                 
                 <div className="mb-4">
-                <h6 className="text-warning">Contact Information</h6>
+                <h6 className="text-cyan">Contact Information</h6>
                 <p className="mb-1"><i className="bi bi-telephone me-2"></i> {coach.phone}</p>
                 <p className="mb-1"><i className="bi bi-envelope me-2"></i> {coach.email}</p>
                 <p className="mb-0"><i className="bi bi-currency-dollar me-2"></i> {coach.hourlyRate}</p>
                 </div>
 
                 <div className="mb-4">
-                <h6 className="text-warning">Availability</h6>
+                <h6 className="text-cyan">Availability</h6>
                 <ul className="list-unstyled">
                     {coach.availability.map((slot, index) => (
                     <li key={index} className="mb-1">{slot}</li>
@@ -248,7 +268,7 @@ function CoachDetails() {
                 <label htmlFor="date" className="form-label">Select Date</label>
                 <input 
                     type="date" 
-                    className="form-control bg-dark text-light" 
+                    className="form-control form-control-glow bg-dark text-light" 
                     id="date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
@@ -258,7 +278,7 @@ function CoachDetails() {
                 <div className="mb-4">
                 <label htmlFor="time" className="form-label">Select Time</label>
                 <select 
-                    className="form-select bg-dark text-light" 
+                    className="form-select form-select-glow bg-dark text-light" 
                     id="time"
                     value={selectedTime}
                     onChange={(e) => setSelectedTime(e.target.value)}
@@ -276,7 +296,7 @@ function CoachDetails() {
                 </div>
 
                 <button 
-                  className="btn btn-warning w-100"
+                  className="btn btn-cyan w-100"
                   onClick={handleBooking}
                 >
                   Confirm Booking

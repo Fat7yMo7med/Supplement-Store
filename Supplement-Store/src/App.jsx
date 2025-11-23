@@ -12,7 +12,6 @@ import Home from './components/Home/Home'
 import AboutUs from './components/AboutUs/AboutUs'
 import Coaches from './components/Coaches/Coaches'
 import Equipments from './components/Equipments/Equipments'
-import Products from './components/Products/Products'
 import Store from './components/Store/Store'
 import EquipmentsDetails from './components/EquipmentsDetails/EquipmentsDetails'
 import ProductDetails from './components/ProductDetails/ProductDetails'
@@ -32,7 +31,6 @@ function App() {
         { path: 'coaches', element: <Coaches/> },
         { path: 'coach/:id', element: <CoachDetails/> },
         { path: 'equipments', element: <Equipments/> },
-        { path: 'products', element: <Products/> },
         { path: 'store', element: <Store /> },
         { path: 'equipmentsDetails', element: <EquipmentsDetails/> },
         { path: 'productDetails', element: <ProductDetails/> },

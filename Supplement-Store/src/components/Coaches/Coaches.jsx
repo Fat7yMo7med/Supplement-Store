@@ -24,7 +24,7 @@ function Coaches() {
       experience: "6+ years experience",
       clients: "200+ satisfied clients",
       certifications: "3 certifications",
-      image: "https://plus.unsplash.com/premium_photo-1661898576032-fd26e3409175?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      image: "https://plus.unsplash.com/premium_photo-1661898576032-fd26e3409175?q=80&w=1170&auto=format&fit=crop"
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ function Coaches() {
       experience: "10+ years experience",
       clients: "300+ satisfied clients",
       certifications: "7 certifications",
-      image: "https://images.unsplash.com/photo-1758875568932-0eefd3e60090?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      image: "https://images.unsplash.com/photo-1758875568932-0eefd3e60090?q=80&w=1332&auto=format&fit=crop"
     },
     {
       id: 4,
@@ -46,165 +46,103 @@ function Coaches() {
       experience: "7+ years experience",
       clients: "180+ satisfied clients",
       certifications: "4 certifications",
-      image: "https://plus.unsplash.com/premium_photo-1664301050654-63085cc3c656?q=80&w=1192&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      image: "https://plus.unsplash.com/premium_photo-1664301050654-63085cc3c656?q=80&w=1192&auto=format&fit=crop"
     },
-    {
-      id: 5,
-      name: "Omar Hassan",
-      specialty: "CrossFit",
-      title: "CrossFit Level 3 Trainer",
-      bio: "CrossFit Level 3 certified trainer with 5 years of experience. Specialized in high-intensity functional training.",
-      experience: "5+ years experience",
-      clients: "120+ satisfied clients",
-      certifications: "6 certifications",
-      image: "https://images.unsplash.com/photo-1551763337-e05b91996d32?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
-      id: 6,
-      name: "Lina Mahmoud",
-      specialty: "Yoga & Pilates",
-      title: "Yoga and Pilates Instructor",
-      bio: "Certified yoga and pilates instructor with 4 years of experience. Focuses on flexibility, balance, and mental wellness.",
-      experience: "4+ years experience",
-      clients: "90+ satisfied clients",
-      certifications: "4 certifications",
-      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center"
-    },
-    {
-      id: 7,
-      name: "Karim Samy",
-      specialty: "Strength Training",
-      title: "Strength and Conditioning Coach",
-      bio: "Strength and conditioning specialist with 9 years of experience. Works with professional athletes and fitness enthusiasts.",
-      experience: "9+ years experience",
-      clients: "220+ satisfied clients",
-      certifications: "8 certifications",
-      image: "https://images.unsplash.com/photo-1639496908117-6633c4aa9592?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
-      id: 8,
-      name: "Nour ElDin",
-      specialty: "Cardio Training",
-      title: "Cardio and Endurance Coach",
-      bio: "Cardio and endurance training expert with 6 years of experience. Specializes in marathon training and cardiovascular health.",
-      experience: "6+ years experience",
-      clients: "150+ satisfied clients",
-      certifications: "5 certifications",
-      image: "https://plus.unsplash.com/premium_photo-1661375069014-cade4c4032b4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    }
   ]);
 
   const [activeFilter, setActiveFilter] = useState("all");
-  const navigate = useNavigate(); // إضافة useNavigate هنا
-
-  const handleViewProfile = (coachId) => {
-    console.log(`Viewing profile of coach with ID: ${coachId}`);
-    // يمكنك إضافة وظيفة عرض الملف الشخصي هنا
-  };
+  const navigate = useNavigate();
 
   const handleBookSession = (coachId) => {
-    navigate(`/coach/${coachId}`); // التوجيه إلى صفحة تفاصيل المدرب
+    navigate(`/coach/${coachId}`);
   };
 
-  const filteredCoaches = activeFilter === "all" 
-    ? coaches 
-    : coaches.filter(coach => 
-        coach.specialty.toLowerCase().includes(activeFilter.toLowerCase())
-      );
+  const filteredCoaches =
+    activeFilter === "all"
+      ? coaches
+      : coaches.filter((coach) =>
+          coach.specialty.toLowerCase().includes(activeFilter.toLowerCase())
+        );
 
   return (
-    <div className="bg-dark text-light min-vh-100 py-5">
-      <div className="container" dir="ltr">
-        {/* Page Header */}
+    <div className="min-vh-100 py-5" style={{ background: "#0f172a" }}>
+      <style>{`
+        .coach-card {
+          background: #1e293b;
+          border-radius: 12px;
+          transition: 0.3s;
+        }
+        .coach-card:hover {
+          transform: translateY(-5px) scale(1.02);
+          box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+        .btn-cyan {
+          background-color: #00e5ff !important;
+          color: #0f172a !important;
+          font-weight: bold;
+        }
+        .btn-cyan-outline {
+          border: 1px solid #00e5ff !important;
+          color: #00e5ff !important;
+        }
+        .badge-cyan {
+          background-color: #00e5ff;
+          color: #0f172a;
+          font-weight: bold;
+        }
+        .title-glow:hover {
+          text-shadow: 0 0 10px #00e5ff;
+        }
+      `}</style>
+
+      <div className="container text-light" dir="ltr">
         <div className="text-center mb-5">
-          <h1 className="text-warning fw-bold mb-3">Our Professional Coaches</h1>
-          <p className="text-light lead">
-            Meet our team of professional coaches who will help you achieve your sports and fitness goals
+          <h1 className="fw-bold title-glow" style={{ color: "#00e5ff" }}>
+            Our Professional Coaches
+          </h1>
+          <p className="lead text-secondary">
+            Meet our elite team ready to guide your fitness transformation
           </p>
         </div>
-
-        {/* Filter Buttons */}
         <div className="d-flex justify-content-center flex-wrap gap-2 mb-4">
-          <button 
-            className={`btn ${activeFilter === "all" ? "btn-warning" : "btn-outline-warning"}`}
-            onClick={() => setActiveFilter("all")}
-          >
-            All Coaches
-          </button>
-          <button 
-            className={`btn ${activeFilter === "bodybuilding" ? "btn-warning" : "btn-outline-warning"}`}
-            onClick={() => setActiveFilter("bodybuilding")}
-          >
-            Bodybuilding
-          </button>
-          <button 
-            className={`btn ${activeFilter === "fitness" ? "btn-warning" : "btn-outline-warning"}`}
-            onClick={() => setActiveFilter("fitness")}
-          >
-            Fitness
-          </button>
-          <button 
-            className={`btn ${activeFilter === "nutrition" ? "btn-warning" : "btn-outline-warning"}`}
-            onClick={() => setActiveFilter("nutrition")}
-          >
-            Nutrition
-          </button>
-          <button 
-            className={`btn ${activeFilter === "crossfit" ? "btn-warning" : "btn-outline-warning"}`}
-            onClick={() => setActiveFilter("crossfit")}
-          >
-            CrossFit
-          </button>
+          {["all", "bodybuilding", "fitness", "nutrition", "crossfit"].map((filter) => (
+            <button
+              key={filter}
+              className={`btn ${
+                activeFilter === filter ? "btn-cyan" : "btn-cyan-outline"
+              }`}
+              onClick={() => setActiveFilter(filter)}
+            >
+              {filter.charAt(0).toUpperCase() + filter.slice(1)}
+            </button>
+          ))}
         </div>
 
-        {/* Coaches Grid */}
         <div className="row g-4">
-          {filteredCoaches.map(coach => (
+          {filteredCoaches.map((coach) => (
             <div key={coach.id} className="col-md-6 col-lg-3">
-              <div className="card h-100 shadow border-0 bg-secondary text-light">
+              <div className="card coach-card h-100 shadow-lg border-0">
                 <div className="position-relative">
-                  <img 
-                    src={coach.image} 
-                    className="card-img-top" 
+                  <img
+                    src={coach.image}
+                    className="card-img-top"
                     alt={coach.name}
                     style={{ height: "250px", objectFit: "cover" }}
                   />
-                  <span className="position-absolute top-0 start-0 m-2 badge bg-warning text-dark">
+                  <span className="badge badge-cyan position-absolute top-0 start-0 m-2">
                     {coach.specialty}
                   </span>
                 </div>
-                
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title text-warning">{coach.name}</h5>
-                  <p className="card-text text-light small">{coach.title}</p>
-                  <p className="card-text flex-grow-1">{coach.bio}</p>
-                  
-                  <div className="border-top border-light py-2 my-2">
-                    <div className="row text-center">
-                      <div className="col-4">
-                        <div className="fw-bold text-warning">{coach.experience.split(' ')[0]}</div>
-                        <small className="text-light">Years Exp</small>
-                      </div>
-                      <div className="col-4">
-                        <div className="fw-bold text-warning">{coach.clients.split(' ')[0]}</div>
-                        <small className="text-light">Clients</small>
-                      </div>
-                      <div className="col-4">
-                        <div className="fw-bold text-warning">{coach.certifications.split(' ')[0]}</div>
-                        <small className="text-light">Achievements</small>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="d-grid gap-2 mt-auto">
-                    <button 
-                      className="btn btn-warning"
-                      onClick={() => handleViewProfile(coach.id)}
-                    >
-                      View Profile
-                    </button>
-                    <button 
-                      className="btn btn-outline-warning"
+                <div className="card-body d-flex flex-column text-light">
+                  <h5 className="fw-bold" style={{ color: "#00e5ff" }}>
+                    {coach.name}
+                  </h5>
+                  <p className="text-secondary small">{coach.title}</p>
+                  <p className="flex-grow-1">{coach.bio}</p>
+                  <div className="d-grid gap-2 mt-3">
+                    <button className="btn btn-cyan">View Profile</button>
+                    <button
+                      className="btn btn-cyan-outline"
                       onClick={() => handleBookSession(coach.id)}
                     >
                       Book Session
@@ -216,11 +154,10 @@ function Coaches() {
           ))}
         </div>
 
-        {/* No Results Message */}
         {filteredCoaches.length === 0 && (
           <div className="text-center py-5">
-            <h4 className="text-warning">No coaches found</h4>
-            <p className="text-light">Try selecting a different filter</p>
+            <h4 style={{ color: "#00e5ff" }}>No coaches found</h4>
+            <p className="text-secondary">Try another filter</p>
           </div>
         )}
       </div>
