@@ -18,6 +18,7 @@ import ProductDetails from './components/ProductDetails/ProductDetails'
 import CoachDetails from './components/CoachDetails/CoachDetails'
 import UserContextProvider from './Context/UserContext'
 import CoachesProfiles from './components/CoachesProfiles/CoachesProfiles'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 function App() {
 
@@ -29,14 +30,14 @@ function App() {
         { index: true, element: <Home/> },
         { path: 'login', element: <Login/> },
         { path: 'register', element: <Register/> },
-        { path: 'aboutUs', element: <AboutUs/> },
-        { path: 'coaches', element: <Coaches/> },
-        { path: 'coach/:id', element: <CoachDetails/> },
-        { path: 'coachesProfiles/:id', element: <CoachesProfiles/> },
-        { path: 'equipments', element: <Equipments/> },
-        { path: 'store', element: <Store /> },
-        { path: 'equipmentsDetails', element: <EquipmentsDetails/> },
-        { path: 'productDetails', element: <ProductDetails/> },
+        { path: 'aboutUs', element:<ProtectedRoute> <AboutUs/> </ProtectedRoute> },
+        { path: 'coaches', element:<ProtectedRoute> <Coaches/> </ProtectedRoute>},
+        { path: 'coach/:id', element:<ProtectedRoute> <CoachDetails/> </ProtectedRoute>},
+        { path: 'coachesProfiles/:id', element:<ProtectedRoute> <CoachesProfiles/> </ProtectedRoute>},
+        { path: 'equipments', element: <ProtectedRoute> <Equipments/> </ProtectedRoute>},
+        { path: 'store', element:<ProtectedRoute> <Store /> </ProtectedRoute>},
+        { path: 'equipmentsDetails', element:<ProtectedRoute> <EquipmentsDetails/> </ProtectedRoute>},
+        { path: 'productDetails', element:<ProtectedRoute> <ProductDetails/> </ProtectedRoute>},
         { path: '*', element: <NotFound/> },
       ]
     }

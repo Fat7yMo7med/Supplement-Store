@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { userContext } from '../../context/UserContext.jsx';
+import { userContext } from '../../Context/UserContext';
 
 export default function RegisterPage() {
   let {setLogin } = useContext(userContext);
