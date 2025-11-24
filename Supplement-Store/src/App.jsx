@@ -17,6 +17,7 @@ import EquipmentsDetails from './components/EquipmentsDetails/EquipmentsDetails'
 import ProductDetails from './components/ProductDetails/ProductDetails'
 import CoachDetails from './components/CoachDetails/CoachDetails'
 import UserContextProvider from './Context/UserContext'
+import CoachesProfiles from './components/CoachesProfiles/CoachesProfiles'
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         { path: 'aboutUs', element: <AboutUs/> },
         { path: 'coaches', element: <Coaches/> },
         { path: 'coach/:id', element: <CoachDetails/> },
+        { path: 'coachesProfiles/:id', element: <CoachesProfiles/> },
         { path: 'equipments', element: <Equipments/> },
         { path: 'store', element: <Store /> },
         { path: 'equipmentsDetails', element: <EquipmentsDetails/> },

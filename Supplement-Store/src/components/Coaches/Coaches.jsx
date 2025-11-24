@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CoachesProfiles from '../CoachesProfiles/CoachesProfiles';
+import CoachesDetails from '../CoachDetails/CoachDetails';
 
 function Coaches() {
   const [coaches] = useState([
@@ -57,7 +59,7 @@ function Coaches() {
       experience: "5+ years experience",
       clients: "120+ satisfied clients",
       certifications: "6 certifications",
-      image: "https://images.unsplash.com/photo-1551763337-e05b91996d32?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      image: "https://images.unsplash.com/photo-1551763337-e05b91996d32?q=80&w=1170&auto=format&fit=crop"
     },
     {
       id: 6,
@@ -79,7 +81,7 @@ function Coaches() {
       experience: "9+ years experience",
       clients: "220+ satisfied clients",
       certifications: "8 certifications",
-      image: "https://images.unsplash.com/photo-1639496908117-6633c4aa9592?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      image: "https://images.unsplash.com/photo-1639496908117-6633c4aa9592?q=80&w=1170&auto=format&fit=crop"
     },
     {
       id: 8,
@@ -90,7 +92,7 @@ function Coaches() {
       experience: "6+ years experience",
       clients: "150+ satisfied clients",
       certifications: "5 certifications",
-      image: "https://plus.unsplash.com/premium_photo-1661375069014-cade4c4032b4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      image: "https://plus.unsplash.com/premium_photo-1661375069014-cade4c4032b4?q=80&w=1170&auto=format&fit=crop"
     }
   ]);
 
@@ -98,15 +100,11 @@ function Coaches() {
   const navigate = useNavigate();
 
   const handleBookSession = (coachId) => {
-    navigate(`/coach/${coachId}`);
+    navigate(`/coach/${coachId}#booking`);
   };
 
-  const filteredCoaches =
-    activeFilter === "all"
-      ? coaches
-      : coaches.filter((coach) =>
-          coach.specialty.toLowerCase().includes(activeFilter.toLowerCase())
-        );
+  const filteredCoaches = activeFilter === "all" ? coaches
+      : coaches.filter((coach) => coach.specialty.toLowerCase().includes(activeFilter.toLowerCase()));
 
   return (
     <div className="min-vh-100 py-5" style={{ background: "#0f172a" }}>
@@ -134,79 +132,30 @@ function Coaches() {
           color: #0f172a;
           font-weight: bold;
         }
-        .title-glow:hover {
-          text-shadow: 0 0 10px #00e5ff;
-        }
       `}</style>
 
       <div className="container text-light" dir="ltr">
-        <div className="text-center mb-5">
-          <h1 className="fw-bold title-glow" style={{ color: "#00e5ff" }}>
-            Our Professional Coaches
-          </h1>
-          <p className="lead text-secondary">
-            Meet our elite team ready to guide your fitness transformation
-          </p>
-        </div>
-        <div className="d-flex justify-content-center flex-wrap gap-2 mb-4">
-          {["all", "bodybuilding", "fitness", "nutrition", "crossfit"].map((filter) => (
-            <button
-              key={filter}
-              className={`btn ${
-                activeFilter === filter ? "btn-cyan" : "btn-cyan-outline"
-              }`}
-              onClick={() => setActiveFilter(filter)}
-            >
-              {filter.charAt(0).toUpperCase() + filter.slice(1)}
-            </button>
-          ))}
-        </div>
-
         <div className="row g-4">
           {filteredCoaches.map((coach) => (
             <div key={coach.id} className="col-md-6 col-lg-3">
               <div className="card coach-card h-100 shadow-lg border-0">
-                <div className="position-relative">
-                  <img
-                    src={coach.image}
-                    className="card-img-top"
-                    alt={coach.name}
-                    style={{ height: "250px", objectFit: "cover" }}
-                  />
-                  <span className="badge badge-cyan position-absolute top-0 start-0 m-2">
-                    {coach.specialty}
-                  </span>
-                </div>
+                <img src={coach.image} className="card-img-top" style={{ height: "250px", objectFit: "cover" }} alt={coach.name}/>
+
                 <div className="card-body d-flex flex-column text-light">
-                  <h5 className="fw-bold" style={{ color: "#00e5ff" }}>
-                    {coach.name}
-                  </h5>
-                  <p className="text-secondary small">{coach.title}</p>
-                  <p className="flex-grow-1">{coach.bio}</p>
-                  <div className="d-grid gap-2 mt-3">
-                    <button className="btn btn-cyan">View Profile</button>
-                    <button
-                      className="btn btn-cyan-outline"
-                      onClick={() => handleBookSession(coach.id)}
-                    >
-                      Book Session
-                    </button>
+                  <h5 className="fw-bold" style={{ color: "#00e5ff" }}>{coach.name}</h5>
+                  <p className="text-secondary">{coach.title}</p>
+
+                  <div className="d-grid gap-2 mt-auto">
+                    <button className="btn btn-cyan" onClick={() => navigate(`/coachesProfiles/${coach.id}`)}> View Profile </button>
+                    <button className="btn btn-cyan-outline" onClick={() => handleBookSession(coach.id)}> Book Session </button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
-
-        {filteredCoaches.length === 0 && (
-          <div className="text-center py-5">
-            <h4 style={{ color: "#00e5ff" }}>No coaches found</h4>
-            <p className="text-secondary">Try another filter</p>
-          </div>
-        )}
       </div>
     </div>
   );
 }
-
 export default Coaches;

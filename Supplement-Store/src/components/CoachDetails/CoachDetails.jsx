@@ -146,12 +146,7 @@ function CoachDetails() {
       <div className="bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
         <div className="text-center">
           <h2 style={{ color: '#00e5ff' }}>Coach Not Found</h2>
-          <button 
-            className="btn btn-cyan mt-3"
-            onClick={() => navigate('/coaches')}
-          >
-            Back to Coaches
-          </button>
+          <button className="btn btn-cyan mt-3" onClick={() => navigate('/coaches')}> Back to Coaches </button>
         </div>
       </div>
     );
@@ -167,52 +162,43 @@ function CoachDetails() {
 
   return (
     <div className="bg-dark text-light min-vh-100 py-5">
-      <style>{`
-        .btn-cyan {
-          background-color: #00e5ff !important;
-          color: #0f172a !important;
-          font-weight: bold;
-          transition: 0.3s;
-        }
-        .btn-cyan:hover {
-          box-shadow: 0 0 10px #00e5ff;
-        }
-        .badge-cyan {
-          background-color: #00e5ff;
-          color: #0f172a;
-          font-weight: bold;
-        }
-        .text-cyan {
-          color: #00e5ff !important;
-        }
-        .form-control-glow:focus, .form-select-glow:focus {
-          border-color: #00e5ff;
-          box-shadow: 0 0 8px #00e5ff;
-          background-color: #1e293b;
-          color: #ffffff;
-        }
-      `}</style>
+      <style>
+        {`
+          .btn-cyan {
+            background-color: #00e5ff !important;
+            color: #0f172a !important;
+            font-weight: bold;
+            transition: 0.3s;
+          }
+          .btn-cyan:hover {
+            box-shadow: 0 0 10px #00e5ff;
+          }
+          .badge-cyan {
+            background-color: #00e5ff;
+            color: #0f172a;
+            font-weight: bold;
+          }
+          .text-cyan {
+            color: #00e5ff !important;
+          }
+          .form-control-glow:focus, .form-select-glow:focus {
+            border-color: #00e5ff;
+            box-shadow: 0 0 8px #00e5ff;
+            background-color: #1e293b;
+            color: #ffffff;
+          }
+        `}
+      </style>
 
       <div className="container">
-        <button 
-          className="btn btn-outline-cyan mb-4"
-          onClick={() => navigate('/coaches')}
-          style={{ borderColor: '#00e5ff', color: '#00e5ff' }}
-        >
-          ← Back to Coaches
-        </button>
+        <button className="btn btn-outline-cyan mb-4" onClick={() => navigate('/coaches')} style={{ borderColor: '#00e5ff', color: '#00e5ff' }}> ← Back to Coaches </button>
 
         <div className="row">
           <div className="col-md-6">
             <div className="card bg-secondary text-light shadow border-0 h-100">
               <div className="row g-0 h-100">
                 <div className="col-md-5">
-                  <img 
-                    src={coach.image} 
-                    className="img-fluid rounded-start h-100" 
-                    alt={coach.name}
-                    style={{objectFit: 'cover'}}
-                  />
+                  <img src={coach.image} className="img-fluid rounded-start h-100" alt={coach.name}style={{objectFit: 'cover'}}/>
                 </div>
                 <div className="col-md-7">
                   <div className="card-body d-flex flex-column h-100">
@@ -265,24 +251,14 @@ function CoachDetails() {
                 </div>
 
                 <div className="mb-3">
-                <label htmlFor="date" className="form-label">Select Date</label>
-                <input 
-                    type="date" 
-                    className="form-control form-control-glow bg-dark text-light" 
-                    id="date"
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                />
+                  <label htmlFor="date" className="form-label">Select Date</label>
+                  <input type="date" className="form-control form-control-glow bg-dark text-light" id="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}/>
                 </div>
 
                 <div className="mb-4">
-                <label htmlFor="time" className="form-label">Select Time</label>
-                <select 
-                    className="form-select form-select-glow bg-dark text-light" 
-                    id="time"
-                    value={selectedTime}
-                    onChange={(e) => setSelectedTime(e.target.value)}
-                >
+                  <label htmlFor="time" className="form-label">Select Time</label>
+
+                  <select className="form-select form-select-glow bg-dark text-light" id="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
                     <option value="">Choose time</option>
                     <option value="09:00">9:00 AM</option>
                     <option value="10:00">10:00 AM</option>
@@ -295,12 +271,7 @@ function CoachDetails() {
                   </select>
                 </div>
 
-                <button 
-                  className="btn btn-cyan w-100"
-                  onClick={handleBooking}
-                >
-                  Confirm Booking
-                </button>
+                <button className="btn btn-cyan w-100" onClick={handleBooking}> Confirm Booking </button>
               </div>
             </div>
           </div>
