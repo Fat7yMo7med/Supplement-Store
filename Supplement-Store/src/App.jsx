@@ -16,6 +16,7 @@ import Store from './components/Store/Store'
 import EquipmentsDetails from './components/EquipmentsDetails/EquipmentsDetails'
 import ProductDetails from './components/ProductDetails/ProductDetails'
 import CoachDetails from './components/CoachDetails/CoachDetails'
+import UserContextProvider from './Context/UserContext'
 
 function App() {
 
@@ -41,7 +42,10 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
+      
     </>
   )
 }

@@ -1,20 +1,43 @@
 import { useState } from 'react'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { userContext } from '../../Context/UserContext'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
 
-  const submit = (e) => {
-    e.preventDefault()
-    if (!email || !password) {
-      setError('Please enter email and password')
-      return
+    let {isLogin, setLogin} = useContext(userContext);
+
+    let navigate = useNavigate();
+
+    async function handleLogin(dataForm) {
+        let respose = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', dataForm);
+        console.log("Full Respones", respose);
+
+        console.log("Certaion Response", respose.data);
+        if (respose.data.message == 'success') {
+            localStorage.setItem('userToken', respose.data.token);
+            setLogin(respose.data.token);
+
+        navigate('/');
+        }
     }
-    setError('')
-    // demo behavior
-    alert('Logged in (demo): ' + email)
-  }
+        
+    let validationSchema = Yup.object({
+        email: Yup.string().required('Email is required').email('Invalid email format'),
+        password: Yup.string().required('Password is required').matches(/^[A-Z][a-z0-9]{6,8}$/, 'Password must start with an uppercase letter followed by 5 to 10 lowercase letters or digits'),
+        })
+
+    let formik = useFormik({
+        initialValues: {
+        email: '',
+        password: '',
+        },
+        validationSchema: validationSchema,
+        onSubmit: handleLogin
+    })
 
   return (
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#0f172a' }}>
@@ -49,27 +72,28 @@ export default function LoginPage() {
           <div className="p-5">
             <h3 className="mb-3 text-cyan text-center">Login</h3>
             <p className="text-warning text-center">Welcome back — please login to your account.</p>
-            <form onSubmit={submit}>
-              <div className="mb-3">
-                <label className="form-label">Email address</label>
-                <input
-                  type="email"
-                  className="form-control form-control-cyan bg-dark text-light"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                />
+            <form onSubmit={formik.handleSubmit}>
+              
+              <div className="col-12">
+                <div className="mb-3">
+                  <input type="email"onChange={formik.handleChange} onBlur={formik.handleBlur} className={`form-control form-control-cyan ${formik.touched.email && formik.errors.email ? 'is-invalid' : ''}` } name="email" value={formik.values.email} id="email" placeholder="name@example.com" required/>
+                  <label className="form-label">Email address</label>
+                  {
+                    formik.touched.email && formik.errors.email ? <div className="invalid-feedback">{formik.errors.email}</div> : null
+                  }
+                </div>
               </div>
-              <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input
-                  type="password"
-                  className="form-control form-control-cyan bg-dark text-light"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="Password"
-                />
+              
+              <div className="col-12">
+                <div className="mb-3">
+                  <input onChange={formik.handleChange} onBlur={formik.handleBlur} type="password" className={`form-control form-control-cyan ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}` } name="password" value={formik.values.password} id="password" placeholder="Password" required/>
+                  <label htmlFor="password" className="form-label">Password</label>
+                  {
+                  formik.touched.password && formik.errors.password ? <div className="invalid-feedback">{formik.errors.password}</div> : null
+                  }
+                </div>
               </div>
+
               <div className="d-flex justify-content-between align-items-center mb-3">
                 <div className="form-check">
                   <input className="form-check-input" type="checkbox" id="remember" />
@@ -77,10 +101,10 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {error && <div className="alert alert-cyan">{error}</div>}
-
-              <div className="d-grid">
-                <button className="btn btn-cyan btn-lg" type="submit">Login</button>
+              <div className="col-12">
+                <div className="d-grid">
+                  <button className="btn btn-cyan btn-lg" type="submit">Login</button>
+                </div>
               </div>
             </form>
           </div>
