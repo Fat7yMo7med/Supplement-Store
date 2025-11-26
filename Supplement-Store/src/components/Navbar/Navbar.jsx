@@ -73,9 +73,14 @@ export default function Navbar() {
                                 </li>
                             </>
                         ) : (
-                            <li className="nav-item">
-                                <NavLink className="nav-link text-warning" onClick={() => {logOut()}}> Log Out </NavLink>
-                            </li>
+                                <>
+                                    <li className="nav-item">
+                                        <NavLink to="cart" className="nav-link mx-3"> <i className="fa-solid fa-cart-arrow-down fa-xl" style={{color: '#fa0000'}} /></NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link text-warning" onClick={() => {logOut()}}> Log Out </NavLink>
+                                    </li>
+                                </>
                         )}
                     </ul>
                 </div>

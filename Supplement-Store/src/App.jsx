@@ -19,6 +19,7 @@ import CoachDetails from './components/CoachDetails/CoachDetails'
 import UserContextProvider from './Context/UserContext'
 import CoachesProfiles from './components/CoachesProfiles/CoachesProfiles'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
+import Cart from './components/Cart/Cart'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         { path: 'store', element:<ProtectedRoute> <Store /> </ProtectedRoute>},
         { path: 'equipmentsDetails', element:<ProtectedRoute> <EquipmentsDetails/> </ProtectedRoute>},
         { path: 'productDetails', element:<ProtectedRoute> <ProductDetails/> </ProtectedRoute>},
+        { path: 'cart', element:<ProtectedRoute> <Cart/> </ProtectedRoute>},
         { path: '*', element: <NotFound/> },
       ]
     }
