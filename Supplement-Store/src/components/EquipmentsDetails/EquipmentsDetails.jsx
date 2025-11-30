@@ -1,39 +1,76 @@
-import { useState } from 'react'
-import img1 from '../../assets/images/eqipment/163f92a0-1c5a-4fbb-ac1e-bd5153551e84-thumbnail-1000x1000-70.jpg'
-import img2 from '../../assets/images/eqipment/58da23b6-cb0d-432b-a24c-03feb602821f-thumbnail-1000x1000-70.jpg'
-import img3 from '../../assets/images/eqipment/8b0c5203-cf0e-4234-b81b-0451d7ddf348-thumbnail-1000x1000-70.jpg'
-import img4 from '../../assets/images/eqipment/eeb19894-5f7c-441b-b1b7-686f0579f4cf-thumbnail-1000x1000-70.jpg'
-
-const items = [
-  { id: 1, title: 'Multi Gym Pro', price: 799, img: img1, desc: 'All-in-one multi gym for full body workouts.' },
-  { id: 2, title: 'Home Gym X', price: 599, img: img2, desc: 'Compact home gym with adjustable resistance.' },
-  { id: 3, title: 'Power Station', price: 999, img: img3, desc: 'Commercial-grade power station for pro athletes.' },
-  { id: 4, title: 'Compact Gym', price: 449, img: img4, desc: 'Space-saving gym for small apartments.' },
-]
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function EquipmentPage() {
-  const [selected, setSelected] = useState(items[0])
-  const [main, setMain] = useState(selected.img)
-  const [qty, setQty] = useState(1)
-  const [tab, setTab] = useState('description')
+  const { id } = useParams();
+  const equipments = [
+    {
+      id: 1,
+      name: "Chest Press Machine",
+      specialty: "Chest",
+      bio: "Certified trainer with 8 years of experience in bodybuilding and fitness.",
+      image: "https://media.zid.store/thumbs/36c4d2e2-f3e9-4c03-8ca4-403001fc251f/52a10a1e-065f-490e-a3ad-9ead7cf4e364-thumbnail-1000x1000-70.jpg",
+      price: 499.99,
+      salePrice: 599.99,
+    },
+    {
+      id: 2,
+      name: "Dual Lat Pulldown / Low Row Machine",
+      specialty: "Back",
+      bio: "Certified fitness and functional training specialist.",
+      image: "https://media.zid.store/36c4d2e2-f3e9-4c03-8ca4-403001fc251f/4b7fa626-c677-48e5-9257-71df6d51933b.jpg",
+      price: 699.99,
+    },
+    {
+      id: 3,
+      name: "Shoulder Press Machine",
+      specialty: "Shoulder",
+      bio: "Certified nutrition specialist with 10 years of experience.",
+      image: "https://5.imimg.com/data5/EC/MW/MY-12324290/if8112-500x500-500x500.jpg",
+      price: 399.99,
+      salePrice: 449.99,
+    },
+    {
+      id: 4,
+      name: "Leg Extension Machine",
+      specialty: "Leg",
+      bio: "Certified sports rehabilitation and injury treatment trainer.",
+      image: "https://fitnessupply.mx/wp-content/uploads/2024/09/IRC-UL-E0016-scaled-1.jpg",
+      price: 299.99,
+    },
+    {
+      id: 5,
+      name: "Chest Fly / Rear Delt Machine",
+      specialty: "Chest",
+      bio: "CrossFit Level 3 certified trainer with 5 years of experience.",
+      image: "https://www.fitnessgymyoga.com/wp-content/uploads/1970/01/68910629-4830-46AF-9BD9-1C9D5B28765B.jpeg",
+      price: 549.99,
+      salePrice: 599.99,
+    },
+    {
+      id: 6,
+      name: "Back Hammer Machine",
+      specialty: "Back",
+      bio: "Certified yoga and pilates instructor with 4 years of experience.",
+      image: "https://www.gymstore.sa/wp-content/uploads/2021/08/1-13-scaled-1.jpg",
+      price: 429.99,
+    },
+  ];
 
-  const selectItem = (it) => {
-    setSelected(it)
-    setMain(it.img)
-    setTab('description')
-    setQty(1)
-  }
-
-  const related = items.filter(i => i.id !== selected.id)
+  const selected = equipments.find(eq => eq.id === Number(id)) || equipments[0];
+  const [main, setMain] = useState(selected.image);
+  const [qty, setQty] = useState(1);
+  const [tab, setTab] = useState("description");
+  const related = equipments.filter(eq => eq.id !== selected.id);
 
   return (
-    <div className="container-fluid p-4" style={{ backgroundColor: '#0f172a', minHeight: '100vh', color: '#e0e0e0' }}>
-      <style>{`
+    <div className="container-fluid p-4" style={{ background: "#0f172a", color: "#e0e0e0", minHeight: "100vh" }}>
+      <style>
+        {`
         .btn-cyan {
           background-color: #00e5ff !important;
           color: #0f172a !important;
           font-weight: bold;
-          transition: 0.3s;
         }
         .btn-cyan:hover {
           box-shadow: 0 0 10px #00e5ff;
@@ -66,141 +103,95 @@ export default function EquipmentPage() {
         .card-bg {
           background-color: #1e293b;
         }
-      `}</style>
+      `}
+      </style>
 
       <div className="row align-items-start mb-4">
         <div className="col-12 col-md-6">
-          <div className="product-gallery card p-3 text-center card-bg text-light">
-            <div className="main-image mb-3">
-              <img src={main} alt="equipment" className="img-fluid rounded" style={{ maxHeight: 520, width: '100%', objectFit: 'cover' }} />
-            </div>
-            <div className="d-flex justify-content-center flex-wrap" style={{ gap: 8 }}>
-              {items.map((it, i) => (
-                <button
-                  key={it.id}
-                  className={`thumb btn p-0 border ${main === it.img ? 'active' : ''}`}
-                  onClick={() => selectItem(it)}
-                >
-                  <img src={it.img} alt={`thumb-${i}`} style={{ width: 88, height: 66, objectFit: 'cover' }} className="rounded" />
-                </button>
-              ))}
-            </div>
+          <div className="card p-3 card-bg text-center">
+            <img src={main} alt={selected.name} className="img-fluid rounded mb-3" style={{ maxHeight: 480, width: "100%", objectFit: "cover" }} />
           </div>
         </div>
 
         <div className="col-12 col-md-6">
-          <div className="product-info p-3 card-bg text-light">
-            <h2 className="mb-2 text-cyan">{selected.title}</h2>
-            <div className="mb-2">
-              <span className="h4 text-cyan me-2">${selected.price}</span>
-              <small className="text-warning">(was ${(selected.price * 1.2).toFixed(2)})</small>
+          <div className="card p-3 card-bg">
+            <h2 className="text-warning">{selected.name}</h2>
+            <span className="badge badge-cyan mb-2">{selected.specialty}</span>
+            <p className="text-white">{selected.bio}</p>
+            <div className="mb-3">
+              <span className="h4 text-warning me-2">${selected.price}</span>
+              {selected.salePrice && <small className="text-warning">(was ${selected.salePrice})</small>}
             </div>
-            <div className="mb-2">
-              <span className="badge badge-cyan me-2">In stock</span>
-            </div>
-            <div className="mb-3 text-white small">
-              Categories: <a style={{textDecoration:"none", color:"#00e5ff"}} onClick={e => e.preventDefault()}>Equipment</a> , <a style={{textDecoration:"none", color:"#00e5ff"}} onClick={e => e.preventDefault()}>Gym</a>
-            </div>
-            <div className="mb-3 d-flex align-items-center" style={{ gap: 12 }}>
-              <div className="rating text-warning">
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star" />
-                <i className="fas fa-star-half-alt" />
-              </div>
-              <small className="text-warning">(245 reviews)</small>
-            </div>
-
-            <p className="text-white">{selected.desc}</p>
 
             <div className="mb-3 d-flex align-items-center" style={{ gap: 8 }}>
-              <label className="me-2 mb-0">Quantity</label>
+              <label className="me-2 mb-0" style={{color:"#00e5ff"}} >Quantity</label>
               <div className="input-group" style={{ width: 140 }}>
                 <button className="btn btn-outline-cyan" onClick={() => setQty(q => Math.max(1, q - 1))}>-</button>
-                <input
-                  type="number"
-                  className="form-control text-center form-control-cyan bg-dark text-light"
-                  value={qty}
-                  onChange={e => setQty(Math.max(1, Number(e.target.value) || 1))}
-                />
+                <input type="number" className="form-control text-center form-control-cyan bg-dark text-light" value={qty} onChange={e => setQty(Math.max(1, Number(e.target.value) || 1))}/>
                 <button className="btn btn-outline-cyan" onClick={() => setQty(q => q + 1)}>+</button>
               </div>
             </div>
 
             <div className="mb-3 d-flex" style={{ gap: 12 }}>
-              <button className="btn btn-cyan btn-lg">Add to cart</button>
-              <button className="btn btn-outline-cyan">Add to wishlist</button>
+              <button className="btn btn-cyan btn-lg m-auto">Add to Cart</button>
             </div>
 
-            <div className="mt-4">
-              <ul className="nav nav-tabs">
-                <li className="nav-item">
-                  <a style={{color:"#f9d90aff"}} className={`nav-link ${tab === 'description' ? 'active' : ''}`} href="#" onClick={e => { e.preventDefault(); setTab('description') }}>Description</a>
-                </li>
-                <li className="nav-item">
-                  <a style={{color:"#f9d90aff"}} className={`nav-link ${tab === 'specs' ? 'active' : ''}`} href="#" onClick={e => { e.preventDefault(); setTab('specs') }}>Specifications</a>
-                </li>
-                <li className="nav-item">
-                  <a style={{color:"#f9d90aff"}} className={`nav-link ${tab === 'reviews' ? 'active' : ''}`} href="#" onClick={e => { e.preventDefault(); setTab('reviews') }}>Reviews (245)</a>
-                </li>
-              </ul>
+            <ul className="nav nav-tabs">
+              <li className="nav-item">
+                <a href="#" className={`nav-link ${tab==="description"?"active":""}`} style={{color:"#f9d90aff"}} onClick={e=>{e.preventDefault(); setTab("description")}}>Description</a>
+              </li>
+              <li className="nav-item">
+                <a href="#" className={`nav-link ${tab==="additional"?"active":""}`} style={{color:"#f9d90aff"}} onClick={e=>{e.preventDefault(); setTab("additional")}}>Additional Info</a>
+              </li>
+              <li className="nav-item">
+                <a href="#" className={`nav-link ${tab==="reviews"?"active":""}`} style={{color:"#f9d90aff"}} onClick={e=>{e.preventDefault(); setTab("reviews")}}>Reviews (245)</a>
+              </li>
+            </ul>
 
-              <div className="tab-content border p-3 card-bg text-light">
-                {tab === 'description' && (
-                  <div>
-                    <h5 className="text-cyan" style={{color:"#f9d90aff"}} >Product description</h5>
-                    <p>{selected.desc} This equipment is built to last and designed for performance.</p>
+            <div className="tab-content border p-3 card-bg text-light mt-2">
+              {tab==="description" && (
+                <div>
+                  <p>{selected.bio}</p>
+                  <ul>
+                    <li>High quality</li>
+                    <li>Durable</li>
+                    <li>Easy to use</li>
+                  </ul>
+                </div>
+              )}
+              {tab==="additional" && (
+                <div>
+                  <p>Weight: 50kg</p>
+                  <p>Dimensions: 150x60x120cm</p>
+                </div>
+              )}
+              {tab==="reviews" && (
+                <div>
+                  <strong>John Doe</strong>
+                  <p className="mt-2">Excellent equipment, very sturdy.</p>
+                  <div className="text-warning">
+                    <i className="fas fa-star"/><i className="fas fa-star"/><i className="fas fa-star"/><i className="fas fa-star"/><i className="fas fa-star-half-alt"/>
                   </div>
-                )}
-
-                {tab === 'specs' && (
-                  <div>
-                    <h5 className="text-cyan" style={{color:"#f9d90aff"}} >Specifications</h5>
-                    <ul>
-                      <li>Dimensions: 200 x 120 x 210 cm</li>
-                      <li>Weight: 150 kg</li>
-                      <li>Material: Steel</li>
-                    </ul>
-                  </div>
-                )}
-
-                {tab === 'reviews' && (
-                  <div>
-                    <h5 className="text-cyan" style={{color:"#f9d90aff"}} >Customer reviews</h5>
-                    <div className="mb-3">
-                      <strong>Samy Ahmed</strong>
-                      <p className='mt-2'>Solid machine — great for home gyms.</p>
-                      <div className="text-warning">
-                        <i className="fas fa-star" /> <i className="fas fa-star" /> <i className="fas fa-star" /> <i className="fas fa-star" /> <i className="fas fa-star" />
-                      </div>
-                    </div>
-                    <small className="text-muted">Showing 1 of 245 reviews (demo)</small>
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="row mt-4">
-        <div className="col-12">
-          <h4 className="mb-3 text-cyan">Related equipment</h4>
-          <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3">
-            {related.map((src, i) => (
-              <div key={src.id} className="col">
-                <div className="card h-100 card-bg text-light" onClick={() => selectItem(src)} style={{ cursor: 'pointer' }}>
-                  <img src={src.img} alt={`related-${i}`} style={{ height: 160, objectFit: 'cover' }} className="card-img-top rounded" />
-                  <div className="card-body p-2">
-                    <div className="small">{src.title}</div>
-                    <div className="fw-bold text-cyan">${src.price}</div>
-                  </div>
-                </div>
+      <h4 className="text-cyan mb-3">Related Equipments</h4>
+      <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3">
+        {related.map(eq=>(
+          <div className="col" key={eq.id}>
+            <div className="card h-100 card-bg text-light" style={{cursor:"pointer"}} onClick={()=>window.location.href=`/equipments/${eq.id}`}>
+              <img src={eq.image} className="card-img-top rounded" style={{height:160, objectFit:"cover"}}/>
+              <div className="card-body p-2">
+                <div className="small">{eq.name}</div>
+                <div className="fw-bold text-cyan">${eq.price}</div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   )

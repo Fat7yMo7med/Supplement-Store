@@ -56,19 +56,15 @@ export default function Equipments() {
   const navigate = useNavigate();
 
   const handleViewDetails = (id) => {
-    console.log(`View details for equipment ID: ${id}`);
+  navigate(`/equipments/${id}`);
   };
 
-  const filteredEquipments =
-    activeFilter === "all"
-      ? equipments
-      : equipments.filter((eq) =>
-          eq.specialty.toLowerCase() === activeFilter.toLowerCase()
-        );
+  const filteredEquipments = activeFilter === "all" ? equipments : equipments.filter((eq) => eq.specialty.toLowerCase() === activeFilter.toLowerCase() );
 
   return (
     <div className="min-vh-100 py-5" style={{ background: "#0f172a" }}>
-      <style>{`
+      <style>
+        {`
         .equip-card {
           background: #1e293b;
           border-radius: 12px;
@@ -95,41 +91,28 @@ export default function Equipments() {
         .title-glow:hover {
           text-shadow: 0 0 10px #00e5ff;
         }
-      `}</style>
-      
+      `}
+      </style>
+
       <div className="container text-light" dir="ltr">
         <div className="text-center mb-5">
-          <h1 className="fw-bold title-glow" style={{ color: "#00e5ff" }}>
-            Our Professional Equipments
-          </h1>
-          <p className="lead text-secondary">
-            Check out the latest advanced equipment for all types of exercises.
-          </p>
+          <h1 className="fw-bold title-glow" style={{ color: "#00e5ff" }}> Our Professional Equipments </h1>
+          <p className="lead text-secondary"> Check out the latest advanced equipment for all types of exercises. </p>
         </div>
         <div className="d-flex justify-content-center flex-wrap gap-2 mb-4">
           {["all", "Chest", "Back", "Shoulder", "Leg"].map((filter) => (
-            <button
-              key={filter}
-              className={`btn ${
-                activeFilter === filter ? "btn-cyan" : "btn-cyan-outline"
-              }`}
-              onClick={() => setActiveFilter(filter)}
-            >
+            <button key={filter} className={`btn ${ activeFilter === filter ? "btn-cyan" : "btn-cyan-outline"}`} onClick={() => setActiveFilter(filter)} >
               {filter === "all" ? "All Equipments" : filter}
             </button>
           ))}
         </div>
+        
         <div className="row g-4">
           {filteredEquipments.map((eq) => (
             <div key={eq.id} className="col-md-6 col-lg-4">
               <div className="card equip-card h-100 shadow-lg border-0">
                 <div className="position-relative">
-                  <img
-                    src={eq.image}
-                    className="card-img-top"
-                    alt={eq.name}
-                    style={{ height: "250px", objectFit: "cover" }}
-                  />
+                  <img src={eq.image} className="card-img-top" alt={eq.name} style={{ height: "250px", objectFit: "cover" }}/>
                   <span className="badge badge-cyan position-absolute top-0 start-0 m-2">
                     {eq.specialty}
                   </span>
@@ -140,12 +123,7 @@ export default function Equipments() {
                   </h5>
                   <p className="flex-grow-1">{eq.bio}</p>
                   <div className="d-grid gap-2 mt-3">
-                    <button
-                      className="btn btn-cyan"
-                      onClick={() => handleViewDetails(eq.id)}
-                    >
-                      View Details
-                    </button>
+                    <button className="btn btn-cyan" onClick={() => handleViewDetails(eq.id)}> View Details </button>
                   </div>
                 </div>
               </div>

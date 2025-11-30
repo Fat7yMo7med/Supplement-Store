@@ -36,9 +36,9 @@ function App() {
         { path: 'coach/:id', element:<ProtectedRoute> <CoachDetails/> </ProtectedRoute>},
         { path: 'coachesProfiles/:id', element:<ProtectedRoute> <CoachesProfiles/> </ProtectedRoute>},
         { path: 'equipments', element: <ProtectedRoute> <Equipments/> </ProtectedRoute>},
-        { path: 'store', element:<ProtectedRoute> <Store /> </ProtectedRoute>},
-        { path: 'equipmentsDetails', element:<ProtectedRoute> <EquipmentsDetails/> </ProtectedRoute>},
-        { path: 'productDetails', element:<ProtectedRoute> <ProductDetails/> </ProtectedRoute>},
+        { path: '/store', element:<ProtectedRoute> <Store /> </ProtectedRoute>},
+        { path: '/equipments/:id', element:<ProtectedRoute> <EquipmentsDetails/> </ProtectedRoute>},
+        { path: '/product/:id', element:<ProtectedRoute> <ProductDetails/> </ProtectedRoute>},
         { path: 'cart', element:<ProtectedRoute> <Cart/> </ProtectedRoute>},
         { path: '*', element: <NotFound/> },
       ]
