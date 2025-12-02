@@ -1,40 +1,36 @@
-import axios from "axios";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-let headers = {
-    token: localStorage.getItem('userToken')
-}
+export const cartContext = createContext();
 
-export let cartContext = createContext();
+export const CartContextProvider = ({ children }) => {
+    const [cart, setCart] = useState([]);
+    
+    const addToCart = (product) => {
+        setCart(prev => {
+        const exists = prev.find(item => item.id === product.id);
+        if (exists) {
+            return prev.map(item => item.id === product.id ? { ...item, quantity: item.quantity + product.quantity } : item);
+        }
+        return [...prev, { ...product, quantity: product.quantity }];
+        });
+    };
 
-export default function CartContextProvider(props){
-    function addProductToCart(productId){
-        return axios.post(`https://ecommerce.routemisr.com/api/v1/cart`,
-            {
-                productId: productId
-            },
-            {
-                headers:headers  
-            }
-        ).then((response)=>response)
-        .catch((error)=>error) 
-    }  
+    const removeFromCart = (id) => {
+        setCart(prev => prev.filter(item => item.id !== id));
+    };
 
-    function getProductToCart() {
-        return axios.get(`https://ecommerce.routemisr.com/api/v1/cart`,
+    const decreaseQuantity = (id) => {
+        setCart(prev =>
+        prev.map(item =>
+            item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        ).filter(item => item.quantity > 0)
+        );
+    };
+    const clearCart = () => setCart([]);
 
-            {
-                headers: headers
-
-            }
-        ).then((response) => response)
-            .catch((error) => error)
-    }
-
-
-    return <cartContext.Provider value={{addProductToCart , getProductToCart}}>
-        { props.children }
-
-    </cartContext.Provider>
-}
-
+    return (
+        <cartContext.Provider value={{ cart, addToCart, removeFromCart, decreaseQuantity, clearCart }}>
+        {children}
+        </cartContext.Provider>
+    );
+};

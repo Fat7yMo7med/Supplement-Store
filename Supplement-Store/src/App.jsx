@@ -20,8 +20,8 @@ import UserContextProvider from './Context/UserContext'
 import CoachesProfiles from './components/CoachesProfiles/CoachesProfiles'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import Cart from './components/Cart/Cart'
-import CartContextProvider from './context/cartContext.jsx'
-import { Toaster } from './../node_modules/react-hot-toast/src/components/toaster';
+import { CartContextProvider } from './context/cartContext'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
