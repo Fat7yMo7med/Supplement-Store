@@ -20,6 +20,8 @@ import UserContextProvider from './Context/UserContext'
 import CoachesProfiles from './components/CoachesProfiles/CoachesProfiles'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import Cart from './components/Cart/Cart'
+import CartContextProvider from './context/cartContext.jsx'
+import { Toaster } from './../node_modules/react-hot-toast/src/components/toaster';
 
 function App() {
 
@@ -47,10 +49,12 @@ function App() {
 
   return (
     <>
-      <UserContextProvider>
-        <RouterProvider router={router} />
-      </UserContextProvider>
-      
+      <CartContextProvider>
+        <UserContextProvider>
+          <RouterProvider router={router} />
+          <Toaster/>
+        </UserContextProvider>
+      </CartContextProvider>
     </>
   )
 }

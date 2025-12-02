@@ -267,7 +267,7 @@ const addToCart = (product) => {
                   </div>
                   {p.onSale && (<small className="text-danger text-decoration-line-through"> ${p.originalPrice} </small> )}
                   <button className="btn btn-info text-dark mt-3 add-cart-btn" onClick={() => addToCart(p)}>
-                    <i className="fa fa-cart-plus me-2"></i> Add to Cart </button>
+                    <i className="fa fa-cart-plus me-2"></i> Show Details </button>
                 </div>
               </div>
             </div>

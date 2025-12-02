@@ -73,7 +73,7 @@ export default function Cart() {
                 <div className="card-body">
                   <div className="row mb-4">
                     <div className="col-lg-3">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp" className="img-fluid rounded"/>
+                      <img src="" className="img-fluid rounded"/>
                     </div>
                     <div className="col-lg-5">
                       <p className="text-cyan fw-bold">Blue denim shirt</p>
@@ -95,7 +95,7 @@ export default function Cart() {
                   <hr className="border-secondary" />
                   <div className="row">
                     <div className="col-lg-3">
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13a.webp"className="img-fluid rounded"/>
+                      <img src=""className="img-fluid rounded"/>
                     </div>
 
                     <div className="col-lg-5">
