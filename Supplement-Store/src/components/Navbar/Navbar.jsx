@@ -75,10 +75,13 @@ export default function Navbar() {
                         ) : (
                                 <>
                                     <li className="nav-item">
-                                        <NavLink to="cart" className="nav-link mx-3"> <i className="fa-solid fa-cart-arrow-down fa-xl" style={{color: '#fa0000'}} /></NavLink>
+                                        <NavLink to="/mypurchases" className="nav-link" title='Purchases'><i className="fa-regular fa-rectangle-list fa-2xl" style={{color: '#ff0000'}} /></NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link text-warning" onClick={() => {logOut()}}> Log Out </NavLink>
+                                        <NavLink to="cart" className="nav-link" title='Cart'> <i className="fa-solid fa-cart-arrow-down fa-xl" style={{color: '#fa0000'}} /></NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link mx-5" onClick={() => {logOut()}} title='Log Out'> <i className="fa-solid fa-right-from-bracket fa-xl" style={{color: '#ff0000'}} /></NavLink>
                                     </li>
                                 </>
                         )}

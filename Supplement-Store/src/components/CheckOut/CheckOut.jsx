@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { cartContext } from "../../context/cartContext";
 import toast, { Toaster } from "react-hot-toast";
+import { purchaseContext } from "../../context/purchasesContext";
 
 export default function CheckoutPage() {
     const { cart, clearCart } = useContext(cartContext);
     const navigate = useNavigate();
+    const { addPurchase } = useContext(purchaseContext);
 
     const [form, setForm] = useState({
         name: "",
@@ -73,13 +75,25 @@ export default function CheckoutPage() {
 
         toast.success("Order placed successfully!", { style: toastStyle });
         clearCart();
+        const previousOrders = JSON.parse(localStorage.getItem("purchases")) || [];
+
+        const newOrder = {
+        id: Date.now(),
+        date: new Date().toLocaleString(),
+        items: cart,
+        total: grandTotal,
+        };
+        localStorage.setItem("purchases", JSON.stringify([...previousOrders, newOrder]));
+        
+        addPurchase(newOrder);
+
         setForm({
             name: "", email: "", address: "", city: "", postalCode: "", country: "",
             cardNumber: "", cardName: "", expiry: "", cvv: "",
         });
         setCardType(null);
 
-        setTimeout(() => navigate("/"), 2000);
+        setTimeout(() => navigate("/mypurchases"), 2000);
     };
 
     const getCardIcon = () => {
@@ -158,7 +172,7 @@ export default function CheckoutPage() {
                                 <input type="text" name="cvv" value={form.cvv} onChange={handleChange} className="form-control" placeholder="123"/>
                             </div>
                         </div>
-                        <button className="btn btn-cyan w-100 mt-3" onClick={handlePlaceOrder}>Place Order</button>
+                        <button className="btn btn-cyan w-100 mt-3" onClick={handlePlaceOrder}>Place Order (${grandTotal.toFixed(2)})</button>
                     </div>
                 </div>
             </div>

@@ -23,6 +23,8 @@ import Cart from './components/Cart/Cart'
 import { CartContextProvider } from './context/cartContext'
 import { Toaster } from 'react-hot-toast'
 import CheckOut from './components/CheckOut/CheckOut'
+import PurchaseContextProvider from './context/purchasesContext'
+import MyPurchases from '../src/components/MyPurchases/MyPurchases'
 
 function App() {
 
@@ -44,6 +46,7 @@ function App() {
         { path: '/product/:id', element:<ProtectedRoute> <ProductDetails/> </ProtectedRoute>},
         { path: 'cart', element:<ProtectedRoute> <Cart/> </ProtectedRoute>},
         { path: 'checkout', element:<ProtectedRoute> <CheckOut/> </ProtectedRoute>},
+        { path: '/mypurchases', element:<ProtectedRoute> <MyPurchases/> </ProtectedRoute>},
         { path: '*', element: <NotFound/> },
       ]
     }
@@ -51,12 +54,14 @@ function App() {
 
   return (
     <>
-      <CartContextProvider>
-        <UserContextProvider>
-          <RouterProvider router={router} />
-          <Toaster/>
-        </UserContextProvider>
-      </CartContextProvider>
+      <PurchaseContextProvider>
+        <CartContextProvider>
+          <UserContextProvider>
+            <RouterProvider router={router} />
+            <Toaster/>
+          </UserContextProvider>
+        </CartContextProvider>
+      </PurchaseContextProvider>
     </>
   )
 }
