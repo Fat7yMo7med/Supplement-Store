@@ -22,6 +22,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import Cart from './components/Cart/Cart'
 import { CartContextProvider } from './context/cartContext'
 import { Toaster } from 'react-hot-toast'
+import CheckOut from './components/CheckOut/CheckOut'
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
         { path: '/equipments/:id', element:<ProtectedRoute> <EquipmentsDetails/> </ProtectedRoute>},
         { path: '/product/:id', element:<ProtectedRoute> <ProductDetails/> </ProtectedRoute>},
         { path: 'cart', element:<ProtectedRoute> <Cart/> </ProtectedRoute>},
+        { path: 'checkout', element:<ProtectedRoute> <CheckOut/> </ProtectedRoute>},
         { path: '*', element: <NotFound/> },
       ]
     }
