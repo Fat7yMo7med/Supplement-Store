@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import toast, { Toaster } from "react-hot-toast";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CoachDetails() {
@@ -152,12 +153,29 @@ function CoachDetails() {
     );
   }
 
+  const toastStyle = {
+    background: "#1e293b",
+    color: "#00e5ff",
+    border: "1px solid #00e5ff",
+    padding: "16px",
+    borderRadius: "12px",
+    fontWeight: "bold",
+  };
+
   const handleBooking = () => {
-    if (selectedDate && selectedTime) {
-      alert(`Session booked with ${coach.name} on ${selectedDate} at ${selectedTime}`);
-    } else {
-      alert("Please select both date and time");
+    if (!selectedDate || !selectedTime) {
+      toast.error("Please select both date and time!", { style: toastStyle });
+      return;
     }
+
+    toast.success(
+      `Session booked with ${coach.name} on ${selectedDate} at ${selectedTime}`,
+      { style: toastStyle }
+    );
+
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
 
   return (

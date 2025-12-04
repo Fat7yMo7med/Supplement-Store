@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -58,7 +60,7 @@ const App = () => {
       category: "equipment",
       price: 699.99,
       rating: 4.9,
-      image: "../../src/assets/images/Titan Adjustable Dumbbells.jpg",
+      image: "../../src/assets/images/Power Rack Pro.jpg",
       description: "Heavy-duty rack for all strength training exercises",
       onSale: false,
     },
@@ -68,7 +70,7 @@ const App = () => {
       category: "supplements",
       price: 29.99,
       rating: 4.6,
-      image: "../../src/assets/images/Titan Adjustable Dumbbells.jpg",
+      image: "../../src/assets/images/Omega 3 Capsules.jpg",
       description: "Supports heart, brain, and joint health",
       onSale: true,
       originalPrice: 39.99,
@@ -79,7 +81,7 @@ const App = () => {
       category: "equipment",
       price: 149.99,
       rating: 4.8,
-      image: "../../src/assets/images/Titan Adjustable Dumbbells.jpg",
+      image: "../../src/assets/images/Adjustable Bench.jpg",
       description: "Multi-angle bench for all your lifting needs",
       onSale: false,
     },
@@ -89,7 +91,7 @@ const App = () => {
       category: "supplements",
       price: 19.99,
       rating: 4.5,
-      image: "../../src/assets/images/Titan Adjustable Dumbbells.jpg",
+      image: "../../src/assets/images/Recovery Protein Bar.jpg",
       description: "High-protein snack for post-workout recovery",
       onSale: false,
     },
@@ -140,7 +142,7 @@ const App = () => {
     {
       img: "../../src/assets/images/Endurance.jpg",
       title: "Endurance",
-      desc: "Increase stamina and improve cardiovascular health.",
+      desc: " Is the ability of an organism to exert itself and remain active for a long period of time.",
     },
   ];
 
@@ -169,6 +171,24 @@ const App = () => {
   });
 
 const addToCart = (product) => {
+  const userToken = localStorage.getItem("userToken");
+
+  if (!userToken) {
+     toast.error("Login required to access store!", {
+      style: {
+        background: "#1e293b",
+        color: "#ff0404ff",
+        border: "1px solid #ff0404ff",
+        fontWeight: "bold",
+      },
+    });
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
+    return;
+  }
+
   setCartItems((prev) => prev + 1);
 
   if (product.category === "supplements") {
@@ -187,6 +207,7 @@ const addToCart = (product) => {
 
   return (
     <div className="bg-dark text-light" style={{ fontFamily: "Poppins" }}>
+      <Toaster />
       <style>
         {`
         .hero-bg {
