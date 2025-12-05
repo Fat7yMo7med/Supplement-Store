@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import styles from './Home.module.css'; 
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -142,7 +143,7 @@ const App = () => {
     {
       img: "../../src/assets/images/Endurance.jpg",
       title: "Endurance",
-      desc: " Is the ability of an organism to exert itself and remain active for a long period of time.",
+      desc: "Is the ability of an organism to exert itself and remain active for a long period of time.",
     },
   ];
 
@@ -170,33 +171,33 @@ const App = () => {
     return matchSearch && matchCategory;
   });
 
-const addToCart = (product) => {
-  const userToken = localStorage.getItem("userToken");
+  const addToCart = (product) => {
+    const userToken = localStorage.getItem("userToken");
 
-  if (!userToken) {
-    toast.error("Login required to access store!", {
-      style: {
-        background: "#1e293b",
-        color: "#ff0404ff",
-        border: "1px solid #ff0404ff",
-        fontWeight: "bold",
-      },
-    });
+    if (!userToken) {
+      toast.error("Login required to access store!", {
+        style: {
+          background: "#1e293b",
+          color: "#ff0404ff",
+          border: "1px solid #ff0404ff",
+          fontWeight: "bold",
+        },
+      });
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000);
-    return;
-  }
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      return;
+    }
 
-  setCartItems((prev) => prev + 1);
+    setCartItems((prev) => prev + 1);
 
-  if (product.category === "supplements") {
-    navigate("/store", { state: { product } });
-  } else if (product.category === "equipment") {
-    navigate("/equipments", { state: { product } });
-  }
-};
+    if (product.category === "supplements") {
+      navigate("/store", { state: { product } });
+    } else if (product.category === "equipment") {
+      navigate("/equipments", { state: { product } });
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -206,142 +207,151 @@ const addToCart = (product) => {
   }, [testimonials.length]);
 
   return (
-    <div className="text-light" style={{ fontFamily: "Poppins", backgroundColor: "#0F172A"}}>
+    <div className={`py-5 ${styles.storeContainer}`}>
       <Toaster />
-      <style>
-        {`
-        .hero-bg {
-          background: radial-gradient(circle at top, #0ef, #000);
-          padding: 120px 0;
-        }
-        .card-hover {
-          transition: 0.35s;
-          transform: translateY(0);
-        }
-        .card-hover:hover {
-          transform: translateY(-10px) scale(1.02);
-          box-shadow: 0 0 25px rgba(0,255,255,0.3);
-        }
-        .add-cart-btn {
-          opacity: 0;
-          transform: translateY(15px);
-          transition: all 0.35s ease;
-          pointer-events: none;
-        }
-        .card:hover .add-cart-btn {
-          opacity: 1;
-          transform: translateY(0);
-          pointer-events: auto;
-        }
-        .glow-icon:hover {
-          text-shadow: 0 0 12px cyan;
-        }
-        .testimonial-box {
-          background:#1e293b;
-          border-radius:15px;
-          padding:25px;
-          box-shadow:0 0 20px rgba(0,0,0,0.3);
-        }
-      `}
-      </style>
-
-      <div className="hero-bg text-center">
-        <h1 className="display-2 fw-bold"> LEVEL UP YOUR <span className="text-info"> FITNESS </span> </h1>
-        <p className="lead mb-4"> Premium supplements, elite equipment, and expert workout programs. </p>
-        <div className="input-group my-4 w-75 mx-auto">
-          <span className="input-group-text bg-secondary text-light">
-            <i className="fa fa-search"></i>
-          </span>
-          <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="form-control bg-secondary text-white" placeholder="Search products..."/>
+      <div className={styles.glowEffect}></div>
+      <div className={`container ${styles.content}`}>
+        <div className={styles.heroSection}>
+          <h1 className={styles.heroTitle}>
+            LEVEL UP YOUR <span className={styles.heroHighlight}>FITNESS</span>
+          </h1>
+          <p className={styles.heroSubtitle}>
+            Premium supplements, elite equipment, and expert workout programs.
+          </p>
+          
+          <div className={styles.searchContainer}>
+            <div className={styles.searchInputGroup}>
+              <span className={styles.searchIcon}>
+                <i className="fa fa-search"></i>
+              </span>
+              <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className={styles.searchInput} placeholder="Search products..."/>
+            </div>
+          </div>
+          
+          <div className={styles.categoryButtons}>
+            {categories.map((d) => (
+              <button key={d.id} onClick={() => setSelectedCategory(d.id)} className={`${styles.categoryButton} ${selectedCategory === d.id ? styles.categoryButtonActive : ''}`}>
+                <i className={`fa ${d.icon} ${styles.categoryIcon}`}></i>
+                {d.name}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="d-flex justify-content-center gap-3 flex-wrap">
-          {categories.map((d) => (
-            <button key={d.id} onClick={() => setSelectedCategory(d.id)} className={`btn px-4 py-2 ${selectedCategory === d.id ? "btn-info text-dark" : "btn-outline-info"}`}>
-              <i className={`fa ${d.icon} me-2 glow-icon`}></i>{d.name} </button>))}
-        </div>
-      </div>
 
-      <div className="container py-5">
-        <div className="row text-center">
-          {features.map((f, i) => (
-            <div key={i} className="col-md-3">
-              <i className={`fa ${f.icon} fa-3x text-info mb-3`} />
-              <h5 className="fw-bold">{f.title}</h5>
-              <p className="text-secondary">{f.desc}</p>
-            </div> ))}
+        <div className={styles.featuresSection}>
+          <div className="row text-center">
+            {features.map((f, i) => (
+              <div key={i} className="col-md-3 mb-4">
+                <div className={styles.featureCard}>
+                  <i className={`fa ${f.icon} ${styles.featureIcon}`} />
+                  <h5 className={styles.featureTitle}>{f.title}</h5>
+                  <p className={styles.featureDesc}>{f.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="container py-5">
-        <h2 className="text-center fw-bold mb-4">🔥 Best Sellers</h2>
-        <div className="row">
-          {filteredProducts.map((p) => (
-            <div key={p.id} className="col-md-3 mb-4">
-              <div className="card text-light h-100 card-hover" style={{ backgroundColor: "#1e293b" }}>
-                <img src={p.image} className="card-img-top" alt={p.name} />
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title fw-bold">{p.name}</h5>
-                  <p className="card-text small">{p.description}</p>
-                  <div className="d-flex justify-content-between">
-                    <span className="text-warning"> {"★".repeat(Math.floor(p.rating))} </span>
-                    <strong>${p.price}</strong>
+        <div className={styles.productsSection}>
+          <h2 className={styles.sectionTitle}><span className="text-white">🔥</span> Best Sellers</h2>
+          <div className="row">
+            {filteredProducts.map((p) => (
+              <div key={p.id} className="col-md-3 mb-4">
+                <div className={styles.productCard}>
+                  <div className={styles.productImageContainer}>
+                    <img src={p.image} className={styles.productImage} alt={p.name} />
+                    {p.onSale && (
+                      <div className={styles.saleBadge}>
+                        SALE
+                      </div>
+                    )}
                   </div>
-                  {p.onSale && (<small className="text-danger text-decoration-line-through"> ${p.originalPrice} </small> )}
-                  <button className="btn btn-info text-dark mt-3 add-cart-btn" onClick={() => addToCart(p)}>
-                    <i className="fa fa-cart-plus me-2"></i> Show Details </button>
+                  <div className={styles.productBody}>
+                    <h5 className={styles.productName}>{p.name}</h5>
+                    <p className={styles.productDescription}>{p.description}</p>
+                    
+                    <div className={styles.productRating}>
+                      <span className={styles.stars}>
+                        {"★".repeat(Math.floor(p.rating))}
+                        <span className={styles.halfStar}>☆</span>
+                      </span>
+                      <span className={styles.ratingNumber}>{p.rating}</span>
+                    </div>
+                    
+                    <div className={styles.productPrice}>
+                      <span className={styles.currentPrice}>${p.price}</span>
+                      {p.onSale && (
+                        <span className={styles.originalPrice}>${p.originalPrice}</span>
+                      )}
+                    </div>
+                    
+                    <button className={styles.addToCartButton}  onClick={() => addToCart(p)} >
+                      <i className="fa fa-cart-plus me-2"></i>
+                      Show Details
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="container py-5">
-        <h2 className="text-center fw-bold mb-4">🏋️ Elite Workout Programs</h2>
-        <div className="row">
-          {workoutPrograms.map((p, i) => (
-            <div key={i} className="col-md-4">
-              <div className="card text-light h-100 card-hover" style={{ backgroundColor: "#1e293b" }}>
-                <img src={p.img} className="card-img-top" />
-                <div className="card-body">
-                  <h4 className="fw-bold">{p.title}</h4>
-                  <p>{p.desc}</p>
+        <div className={styles.workoutSection}>
+          <h2 className={styles.sectionTitle}><span className="text-white">🏋️</span> Elite Workout Programs</h2>
+          <div className="row">
+            {workoutPrograms.map((p, i) => (
+              <div key={i} className="col-md-4 mb-4">
+                <div className={styles.workoutCard}>
+                  <div className={styles.workoutImageContainer}>
+                    <img src={p.img} className={styles.workoutImage} alt={p.title} />
+                  </div>
+                  <div className={styles.workoutBody}>
+                    <h4 className={styles.workoutTitle}>{p.title}</h4>
+                    <p className={styles.workoutDesc}>{p.desc}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="container py-5">
-        <h2 className="text-center fw-bold mb-4">📝 Latest Articles</h2>
-        <div className="row">
-          {blogPosts.map((b, i) => (
-            <div key={i} className="col-md-4">
-              <div className="card text-light h-100 card-hover" style={{ backgroundColor: "#1e293b" }}>
-                <img src={b.img} className="card-img-top" />
-                <div className="card-body">
-                  <h4 className="fw-bold">{b.title}</h4>
-                  <p className="text-muted">{b.date}</p>
+        <div className={styles.blogSection}>
+          <h2 className={styles.sectionTitle}><span className="text-white">📝</span> Latest Articles</h2>
+          <div className="row">
+            {blogPosts.map((b, i) => (
+              <div key={i} className="col-md-4 mb-4">
+                <div className={styles.blogCard}>
+                  <div className={styles.blogImageContainer}>
+                    <img src={b.img} className={styles.blogImage} alt={b.title} />
+                  </div>
+                  <div className={styles.blogBody}>
+                    <h4 className={styles.blogTitle}>{b.title}</h4>
+                    <p className={styles.blogDate}>
+                      <i className="fa fa-calendar me-2"></i>
+                      {b.date}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="py-5" style={{ backgroundColor: "#0f172a" }}>
-        <div className="container text-center testimonial-box">
-          <img
-            src={testimonials[activeTestimonial].image}
-            className="rounded-circle mb-3"
-            alt=""
-          />
-          <blockquote className="fst-italic">
-            "{testimonials[activeTestimonial].content}"
-          </blockquote>
-          <h5 className="fw-bold">{testimonials[activeTestimonial].name}</h5>
-          <p className="text-light">{testimonials[activeTestimonial].role}</p>
+        <div className={styles.testimonialSection}>
+          <div className={styles.testimonialCard}>
+            <div className={styles.testimonialContent}>
+              <img src={testimonials[activeTestimonial].image} className={styles.testimonialImage} alt={testimonials[activeTestimonial].name}/>
+              <blockquote className={styles.testimonialQuote}>
+                "{testimonials[activeTestimonial].content}"
+              </blockquote>
+              <h5 className={styles.testimonialName}>
+                {testimonials[activeTestimonial].name}
+              </h5>
+              <p className={styles.testimonialRole}>
+                {testimonials[activeTestimonial].role}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

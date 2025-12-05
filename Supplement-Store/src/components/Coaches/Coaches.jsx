@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import CoachesProfiles from '../CoachesProfiles/CoachesProfiles';
-import CoachesDetails from '../CoachDetails/CoachDetails';
+import styles from './coaches.module.css';
 
 function Coaches() {
   const [coaches] = useState([
@@ -12,8 +10,8 @@ function Coaches() {
       specialty: "Bodybuilding",
       title: "Professional Bodybuilding Coach",
       bio: "Certified trainer with 8 years of experience in bodybuilding and fitness. Winner of several local and international championships.",
-      experience: "8+ years experience",
-      clients: "150+ satisfied clients",
+      experience: "8+ years",
+      clients: "150+ clients",
       certifications: "5 championships",
       image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=400&h=400&fit=crop&crop=center"
     },
@@ -23,8 +21,8 @@ function Coaches() {
       specialty: "Fitness",
       title: "Fitness and Functional Training Coach",
       bio: "Certified fitness and functional training specialist. Expert in weight loss exercises and general fitness improvement.",
-      experience: "6+ years experience",
-      clients: "200+ satisfied clients",
+      experience: "6+ years",
+      clients: "200+ clients",
       certifications: "3 certifications",
       image: "https://plus.unsplash.com/premium_photo-1661898576032-fd26e3409175?q=80&w=1170&auto=format&fit=crop"
     },
@@ -34,8 +32,8 @@ function Coaches() {
       specialty: "Sports Nutrition",
       title: "Sports Nutrition Specialist",
       bio: "Certified nutrition specialist with 10 years of experience in sports nutrition. Helps athletes improve performance through balanced nutrition.",
-      experience: "10+ years experience",
-      clients: "300+ satisfied clients",
+      experience: "10+ years",
+      clients: "300+ clients",
       certifications: "7 certifications",
       image: "https://images.unsplash.com/photo-1758875568932-0eefd3e60090?q=80&w=1332&auto=format&fit=crop"
     },
@@ -45,8 +43,8 @@ function Coaches() {
       specialty: "Sports Rehabilitation",
       title: "Sports Rehabilitation and Injury Coach",
       bio: "Certified sports rehabilitation and injury treatment trainer. Helps athletes recover and return to sports safely.",
-      experience: "7+ years experience",
-      clients: "180+ satisfied clients",
+      experience: "7+ years",
+      clients: "180+ clients",
       certifications: "4 certifications",
       image: "https://plus.unsplash.com/premium_photo-1664301050654-63085cc3c656?q=80&w=1192&auto=format&fit=crop"
     },
@@ -56,8 +54,8 @@ function Coaches() {
       specialty: "CrossFit",
       title: "CrossFit Level 3 Trainer",
       bio: "CrossFit Level 3 certified trainer with 5 years of experience. Specialized in high-intensity functional training.",
-      experience: "5+ years experience",
-      clients: "120+ satisfied clients",
+      experience: "5+ years",
+      clients: "120+ clients",
       certifications: "6 certifications",
       image: "https://images.unsplash.com/photo-1551763337-e05b91996d32?q=80&w=1170&auto=format&fit=crop"
     },
@@ -67,8 +65,8 @@ function Coaches() {
       specialty: "Yoga & Pilates",
       title: "Yoga and Pilates Instructor",
       bio: "Certified yoga and pilates instructor with 4 years of experience. Focuses on flexibility, balance, and mental wellness.",
-      experience: "4+ years experience",
-      clients: "90+ satisfied clients",
+      experience: "4+ years",
+      clients: "90+ clients",
       certifications: "4 certifications",
       image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center"
     },
@@ -78,8 +76,8 @@ function Coaches() {
       specialty: "Strength Training",
       title: "Strength and Conditioning Coach",
       bio: "Strength and conditioning specialist with 9 years of experience. Works with professional athletes and fitness enthusiasts.",
-      experience: "9+ years experience",
-      clients: "220+ satisfied clients",
+      experience: "9+ years",
+      clients: "220+ clients",
       certifications: "8 certifications",
       image: "https://images.unsplash.com/photo-1639496908117-6633c4aa9592?q=80&w=1170&auto=format&fit=crop"
     },
@@ -89,8 +87,8 @@ function Coaches() {
       specialty: "Cardio Training",
       title: "Cardio and Endurance Coach",
       bio: "Cardio and endurance training expert with 6 years of experience. Specializes in marathon training and cardiovascular health.",
-      experience: "6+ years experience",
-      clients: "150+ satisfied clients",
+      experience: "6+ years",
+      clients: "150+ clients",
       certifications: "5 certifications",
       image: "https://plus.unsplash.com/premium_photo-1661375069014-cade4c4032b4?q=80&w=1170&auto=format&fit=crop"
     }
@@ -103,59 +101,80 @@ function Coaches() {
     navigate(`/coach/${coachId}#booking`);
   };
 
-  const filteredCoaches = activeFilter === "all" ? coaches
-      : coaches.filter((coach) => coach.specialty.toLowerCase().includes(activeFilter.toLowerCase()));
+  const handleViewProfile = (coachId) => {
+    navigate(`/coachesProfiles/${coachId}`);
+  };
+
+  const filteredCoaches = activeFilter === "all" 
+    ? coaches
+    : coaches.filter((coach) => coach.specialty.toLowerCase().includes(activeFilter.toLowerCase()));
+
+  const specialties = ["all", "Bodybuilding", "Fitness", "Sports Nutrition", "Sports Rehabilitation", "CrossFit", "Yoga & Pilates", "Strength Training", "Cardio Training"];
 
   return (
-    <div className="min-vh-100 py-5" style={{ background: "#0f172a" }}>
-      <style>{`
-        .coach-card {
-          background: #1e293b;
-          border-radius: 12px;
-          transition: 0.3s;
-        }
-        .coach-card:hover {
-          transform: translateY(-5px) scale(1.02);
-          box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-        }
-        .btn-cyan {
-          background-color: #00e5ff !important;
-          color: #0f172a !important;
-          font-weight: bold;
-        }
-        .btn-cyan-outline {
-          border: 1px solid #00e5ff !important;
-          color: #00e5ff !important;
-        }
-        .badge-cyan {
-          background-color: #00e5ff;
-          color: #0f172a;
-          font-weight: bold;
-        }
-      `}</style>
+    <div className={styles.coachesContainer}>
+      <div className={styles.glowEffect}></div>
 
-      <div className="container text-light" dir="ltr">
-        <div className="row g-4">
-          {filteredCoaches.map((coach) => (
-            <div key={coach.id} className="col-md-6 col-lg-3">
-              <div className="card coach-card h-100 shadow-lg border-0">
-                <img src={coach.image} className="card-img-top" style={{ height: "250px", objectFit: "cover" }} alt={coach.name}/>
+      <div className="container">
+        <div className={styles.header}>
+          <h1 className={styles.title}>Our Professional Coaches</h1>
+          <p className={styles.subtitle}>
+            Meet our certified coaches who will help you achieve your fitness goals
+          </p>
+        </div>
 
-                <div className="card-body d-flex flex-column text-light">
-                  <h5 className="fw-bold" style={{ color: "#00e5ff" }}>{coach.name}</h5>
-                  <p className="text-secondary">{coach.title}</p>
+        <div className={styles.filterContainer}>
+          {specialties.map((specialty) => (
+            <button key={specialty} className={`${styles.filterButton} ${activeFilter === specialty ? styles.active : ""}`} onClick={() => setActiveFilter(specialty)}>
+              {specialty === "all" ? "All Coaches" : specialty}
+            </button>
+          ))}
+        </div>
 
-                  <div className="d-grid gap-2 mt-auto">
-                    <button className="btn btn-cyan" onClick={() => navigate(`/coachesProfiles/${coach.id}`)}> View Profile </button>
-                    <button className="btn btn-cyan-outline" onClick={() => handleBookSession(coach.id)}> Book Session </button>
+        <div className={styles.coachesGrid}>
+          {filteredCoaches.length === 0 ? (
+            <div className={styles.emptyState}>
+              <i className={`fas fa-user-friends ${styles.emptyIcon}`}></i>
+              <h2 className={styles.emptyTitle}>No Coaches Found</h2>
+              <p className={styles.emptyText}>
+                No coaches found for the selected category. Try another filter to see available coaches.
+              </p>
+              <button className={styles.resetButton} onClick={() => setActiveFilter("all")}>
+                <i className="fas fa-redo"></i>
+                Show All Coaches
+              </button>
+            </div>
+          ) : (
+            filteredCoaches.map((coach) => (
+              <div key={coach.id} className={styles.coachCard}>
+                <div className={styles.imageContainer}>
+                  <img src={coach.image} alt={coach.name} className={styles.coachImage}/>
+                  <div className={styles.specialtyBadge}>
+                    {coach.specialty}
+                  </div>
+                </div>
+
+                <div className={styles.cardContent}>
+                  <h3 className={styles.coachName}>{coach.name}</h3>
+                  <p className={styles.coachTitle}>{coach.title}</p>
+                  <div className={styles.actionButtons}>
+                    <button className={styles.profileButton} onClick={() => handleViewProfile(coach.id)}>
+                      <i className="fas fa-user-circle"></i>
+                      View Profile
+                    </button>
+                    <button className={styles.bookButton} onClick={() => handleBookSession(coach.id)}>
+                      <i className="fas fa-calendar-alt"></i>
+                      Book Session
+                    </button>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </div>
   );
 }
+
 export default Coaches;
