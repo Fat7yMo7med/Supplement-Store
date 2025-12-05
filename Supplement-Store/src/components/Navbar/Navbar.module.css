@@ -111,7 +111,7 @@
 }
 
 .authLink {
-    color: #ffd700 !important;
+    color: #00e5ff !important;
     padding: 0.75rem 1.5rem !important;
     border: 2px solid transparent;
     border-radius: 8px;
@@ -121,23 +121,23 @@
 .authLink:hover {
     color: #ffffff !important;
     background-color: rgba(255, 215, 0, 0.1);
-    border-color: #ffd700;
+    border-color: #00e5ff;
     transform: translateY(-2px);
 }
 
 .authLink:focus {
-    outline: 2px solid #ffd700;
+    outline: 2px solid #00e5ff;
     outline-offset: 2px;
 }
 
 .activeAuth {
-    background-color: rgba(255, 215, 0, 0.2);
-    border-color: #ffd700;
+    background-color: rgba(0, 251, 255, 0.288);
+    border-color: #00e5ff;
     color: #ffffff !important;
 }
 
 .loginCreative {
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    background: linear-gradient(135deg, #00e5ff 0%, #66eefd 100%);
     color: #1a1a2e !important;
     padding: 0.75rem 2rem !important;
     border-radius: 25px;
@@ -172,7 +172,7 @@
 
 .loginCreative:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 10px 25px #01e6ff7e;
     color: #1a1a2e !important;
 }
 

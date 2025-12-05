@@ -1,36 +1,53 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
 import { userContext } from '../../Context/UserContext';
+import styles from './register.module.css';
 
 export default function RegisterPage() {
-  let {setLogin } = useContext(userContext);
-
+  let { setLogin } = useContext(userContext);
   let navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleRegister(dataForm) {
-    console.log("Register", dataForm);
-
-    let respose = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup', dataForm);
-    if (respose.data.message == 'success') {
-
-      localStorage.setItem('userToken', respose.data.token);
-      setLogin(respose.data.token);
-
-      navigate('/login');
+    setIsLoading(true);
+    try {
+      let response = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup', dataForm);
+      
+      if (response.data.message === 'success') {
+        localStorage.setItem('userToken', response.data.token);
+        setLogin(response.data.token);
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
+    } finally {
+      setIsLoading(false);
     }
   }
-    
+
   let validationSchema = Yup.object({
-    name: Yup.string().required('Name is required').min(3, 'Name must be at least 3 characters').max(15, 'Name must be at most 15 characters'),
-    email: Yup.string().required('Email is required').email('Invalid email format'),
-    password: Yup.string().required('Password is required').matches(/^[A-Z][a-z0-9]{6,8}$/, 'Password must start with an uppercase letter followed by 5 to 10 lowercase letters or digits'),
-    rePassword: Yup.string().required('Repassword is required').oneOf([Yup.ref('password')], 'Passwords must match'),
-    phone: Yup.string().required('Phone is required').matches(/^01[0125][0-9]{8}$/, 'Invalid Egyptian phone number')
-    })
+    name: Yup.string()
+      .required('Name is required')
+      .min(3, 'Name must be at least 3 characters')
+      .max(15, 'Name must be at most 15 characters'),
+    email: Yup.string()
+      .required('Email is required')
+      .email('Invalid email format'),
+    password: Yup.string()
+      .required('Password is required')
+      .matches(/^[A-Z][a-z0-9]{5,9}$/, 'Password must start with an uppercase letter followed by 5 to 9 lowercase letters or digits'),
+    rePassword: Yup.string()
+      .required('Confirm password is required')
+      .oneOf([Yup.ref('password')], 'Passwords must match'),
+    phone: Yup.string()
+      .required('Phone is required')
+      .matches(/^01[0125][0-9]{8}$/, 'Invalid Egyptian phone number')
+  });
 
   let formik = useFormik({
     initialValues: {
@@ -42,97 +59,112 @@ export default function RegisterPage() {
     },
     validationSchema: validationSchema,
     onSubmit: handleRegister
-  })
+  });
 
   return (
-    <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style={{ backgroundColor: '#0f172a' }}>
-      <style>{`
-        .btn-cyan {
-          background-color: #00e5ff !important;
-          font-weight: bold;
-          transition: 0.3s;
-        }
-        .btn-cyan:hover {
-          box-shadow: 0 0 10px #00e5ff;
-        }
-        .text-cyan {
-          color: #00e5ff !important;
-        }
-        .alert-cyan {
-          background-color: #00e5ff;
-          font-weight: bold;
-        }
-        .form-control-cyan:focus {
-          border-color: #00e5ff;
-          box-shadow: 0 0 8px #00e5ff;
-        }
-      `}</style>
-
-      <div className="w-100" style={{ maxWidth: 720 }}>
-        <div className="card shadow-lg bg-secondary text-light border-0">
-          <div className="p-5">
-            <h3 className="mb-3 text-cyan text-center">Create account</h3>
-            <p className="text-center" style={{color:"red"}}>Fill the form to create your account.</p>
-            <form onSubmit={formik.handleSubmit}>
-              <div className="col-12">
-                <div className="form-floating mb-3">
-                  <input className={`form-control form-control-cyan ${formik.touched.name && formik.errors.name ? 'is-invalid' : ''}`} value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} id="name" placeholder="name" required />
-                  <label className="form-label">Full name</label>
-                  {
-                      formik.touched.name && formik.errors.name ? <div className="invalid-feedback">{formik.errors.name}</div> : null
-                  }
-                </div>
-              </div>
-
-              <div className="col-12">
-                <div className="form-floating mb-3">
-                  <input type="email" className={`form-control form-control-cyan ${formik.touched.email && formik.errors.email ? 'is-invalid' : ''}`} value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} id="email" placeholder="Email" required/>
-                  <label className="form-label">Email</label>
-                  {
-                    formik.touched.email && formik.errors.email ? <div className="invalid-feedback">{formik.errors.email}</div> : null
-                  }
-                </div>
-              </div>
-
-              <div className="col-12">
-                <div className="form-floating mb-3">
-                  <input type="password" className={`form-control form-control-cyan ${formik.touched.password && formik.errors.password ? 'is-invalid' : ''}`} value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} id="password" placeholder="password" required />
-                  <label className="form-label">Password</label>
-                  {
-                    formik.touched.password && formik.errors.password ? <div className="invalid-feedback">{formik.errors.password}</div> : null
-                  }
-                </div>
-              </div>
-
-              <div className="col-12">
-                <div className="form-floating mb-3">
-                  <input type="password" className={`form-control form-control-cyan ${formik.touched.rePassword && formik.errors.rePassword ? 'is-invalid' : ''}`} value={formik.values.rePassword} onChange={formik.handleChange} onBlur={formik.handleBlur} id="rePassword" placeholder="rePassword" required />
-                  <label className="form-label">Confirm password</label>
-                  {
-                    formik.touched.rePassword && formik.errors.rePassword ? <div className="invalid-feedback">{formik.errors.rePassword}</div> : null
-                  }
-                </div>
-              </div>
-
-              <div className="col-12">
-                  <div className="form-floating mb-3">
-                    <input onChange={formik.handleChange} onBlur={formik.handleBlur} type="tel" className={`form-control ${formik.touched.phone && formik.errors.phone ? 'is-invalid' : ''}` } name="phone" value={formik.values.phone} id="phone" placeholder="phone" required/>
-                    <label htmlFor="phone" className="form-label">Phone</label>
-                    {
-                      formik.touched.phone && formik.errors.phone ? <div className="invalid-feedback">{formik.errors.phone}</div> : null
-                    }
-                  </div>
-              </div>
-
-              <div className="d-grid">
-                <button className="btn btn-cyan btn-lg" type="submit">
-                  Register
-                </button>
-              </div>
-            </form>
-          </div>
+    <div className={`py-5 ${styles.registerContainer}`}>
+      <div className={styles.glowEffect}></div>
+      <div className={styles.card}>
+        <div className={styles.logoContainer}>
+          <i className={`fas fa-user-plus m-auto ${styles.logoIcon}`}></i>
         </div>
+
+        <div className={styles.header}>
+          <h1 className={styles.title}>Create Account</h1>
+          <p className={styles.subtitle}>Fill the form to create your account</p>
+        </div>
+
+        <form onSubmit={formik.handleSubmit}>
+          <div className={styles.formGroup}>
+            <div className={styles.inputContainer}>
+              <i className={`fas fa-user ${styles.icon}`}></i>
+              <input type="text" onChange={formik.handleChange} onBlur={formik.handleBlur} className={styles.inputField} name="name" value={formik.values.name} id="name" placeholder="Full Name " requireddisabled={isLoading}/>
+            </div>
+            {formik.touched.name && formik.errors.name && (
+              <div className={styles.error}>
+                <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+                {formik.errors.name}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.formGroup}>
+            <div className={styles.inputContainer}>
+              <i className={`fas fa-envelope ${styles.icon}`}></i>
+              <input type="email" onChange={formik.handleChange} onBlur={formik.handleBlur} className={styles.inputField} name="email" value={formik.values.email} id="email" placeholder="Email Address" required disabled={isLoading}/>
+            </div>
+            {formik.touched.email && formik.errors.email && (
+              <div className={styles.error}>
+                <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+                {formik.errors.email}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.formGroup}>
+            <div className={styles.inputContainer}>
+              <i className={`fas fa-lock ${styles.icon}`}></i>
+              <input type={showPassword ? "text" : "password"} onChange={formik.handleChange} onBlur={formik.handleBlur} className={styles.inputField} name="password" value={formik.values.password} id="password" placeholder="Password " required disabled={isLoading}/>
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className={styles.togglePassword} disabled={isLoading}>
+                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
+            </div>
+            {formik.touched.password && formik.errors.password && (
+              <div className={styles.error}>
+                <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+                {formik.errors.password}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.formGroup}>
+            <div className={styles.inputContainer}>
+              <i className={`fas fa-lock ${styles.icon}`}></i>
+              <input type={showConfirmPassword ? "text" : "password"} onChange={formik.handleChange} onBlur={formik.handleBlur} className={styles.inputField} name="rePassword" value={formik.values.rePassword} id="rePassword" placeholder="Confirm Password " required disabled={isLoading}/>
+              <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className={styles.togglePassword} disabled={isLoading}>
+                <i className={`fas ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+              </button>
+            </div>
+            {formik.touched.rePassword && formik.errors.rePassword && (
+              <div className={styles.error}>
+                <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+                {formik.errors.rePassword}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.formGroup}>
+            <div className={styles.inputContainer}>
+              <i className={`fas fa-phone ${styles.icon}`}></i>
+              <input type="tel" onChange={formik.handleChange} onBlur={formik.handleBlur} className={styles.inputField} name="phone" value={formik.values.phone} id="phone" placeholder="Phone Number " required disabled={isLoading} />
+            </div>
+            {formik.touched.phone && formik.errors.phone && (
+              <div className={styles.error}>
+                <i className={`fas fa-exclamation-circle ${styles.errorIcon}`}></i>
+                {formik.errors.phone}
+              </div>
+            )}
+          </div>
+          <button className={styles.submitButton}  type="submit" disabled={isLoading} >
+            {isLoading ? (
+              <>
+                <i className={`fas fa-spinner ${styles.buttonIcon} ${styles.loading}`}></i>
+                Creating Account...
+              </>
+            ) : (
+              <>
+                <i className={`fas fa-user-plus ${styles.buttonIcon}`}></i>
+                Register
+              </>
+            )}
+          </button>
+
+          <div className={styles.loginLink}>
+            Already have an account? 
+            <a href="/login">Sign in here</a>
+          </div>
+        </form>
       </div>
     </div>
-  )
+  );
 }
