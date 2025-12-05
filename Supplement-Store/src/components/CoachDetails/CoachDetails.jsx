@@ -179,7 +179,7 @@ function CoachDetails() {
   };
 
   return (
-    <div className="bg-dark text-light min-vh-100 py-5">
+    <div className="text-light min-vh-100 py-5" style={{ backgroundColor: "#0F172A" }}>
       <style>
         {`
           .btn-cyan {
@@ -213,7 +213,7 @@ function CoachDetails() {
 
         <div className="row">
           <div className="col-md-6">
-            <div className="card bg-secondary text-light shadow border-0 h-100">
+            <div className="card text-light shadow border-0 h-100" style={{ background: "#020617" }}>
               <div className="row g-0 h-100">
                 <div className="col-md-5">
                   <img src={coach.image} className="img-fluid rounded-start h-100" alt={coach.name}style={{objectFit: 'cover'}}/>
@@ -248,7 +248,7 @@ function CoachDetails() {
           </div>
 
           <div className="col-md-6">
-            <div className="card bg-secondary text-light shadow border-0 h-100">
+            <div className="card text-light shadow border-0 h-100" style={{ background: "#020617" }}>
             <div className="card-body">
                 <h4 className="card-title text-cyan mb-4">Book a Session</h4>
                 

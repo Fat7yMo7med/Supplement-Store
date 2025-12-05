@@ -137,7 +137,7 @@ function CoachesProfiles() {
     }
 
     return (
-        <div className="bg-dark text-light min-vh-100 py-5">
+        <div className="text-light min-vh-100 py-5" style={{ background: "#0F172A" }}>
             <style>
                 {`
                     .btn-cyan {

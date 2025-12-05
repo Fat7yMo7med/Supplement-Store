@@ -174,7 +174,7 @@ const addToCart = (product) => {
   const userToken = localStorage.getItem("userToken");
 
   if (!userToken) {
-     toast.error("Login required to access store!", {
+    toast.error("Login required to access store!", {
       style: {
         background: "#1e293b",
         color: "#ff0404ff",
@@ -206,7 +206,7 @@ const addToCart = (product) => {
   }, [testimonials.length]);
 
   return (
-    <div className="bg-dark text-light" style={{ fontFamily: "Poppins" }}>
+    <div className="text-light" style={{ fontFamily: "Poppins", backgroundColor: "#0F172A"}}>
       <Toaster />
       <style>
         {`
@@ -237,7 +237,7 @@ const addToCart = (product) => {
           text-shadow: 0 0 12px cyan;
         }
         .testimonial-box {
-          background:#202733;
+          background:#1e293b;
           border-radius:15px;
           padding:25px;
           box-shadow:0 0 20px rgba(0,0,0,0.3);
@@ -277,7 +277,7 @@ const addToCart = (product) => {
         <div className="row">
           {filteredProducts.map((p) => (
             <div key={p.id} className="col-md-3 mb-4">
-              <div className="card bg-secondary text-light h-100 card-hover">
+              <div className="card text-light h-100 card-hover" style={{ backgroundColor: "#1e293b" }}>
                 <img src={p.image} className="card-img-top" alt={p.name} />
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title fw-bold">{p.name}</h5>
@@ -301,7 +301,7 @@ const addToCart = (product) => {
         <div className="row">
           {workoutPrograms.map((p, i) => (
             <div key={i} className="col-md-4">
-              <div className="card bg-dark text-light card-hover">
+              <div className="card text-light h-100 card-hover" style={{ backgroundColor: "#1e293b" }}>
                 <img src={p.img} className="card-img-top" />
                 <div className="card-body">
                   <h4 className="fw-bold">{p.title}</h4>
@@ -318,7 +318,7 @@ const addToCart = (product) => {
         <div className="row">
           {blogPosts.map((b, i) => (
             <div key={i} className="col-md-4">
-              <div className="card bg-secondary text-light card-hover">
+              <div className="card text-light h-100 card-hover" style={{ backgroundColor: "#1e293b" }}>
                 <img src={b.img} className="card-img-top" />
                 <div className="card-body">
                   <h4 className="fw-bold">{b.title}</h4>
@@ -330,7 +330,7 @@ const addToCart = (product) => {
         </div>
       </div>
 
-      <div className="bg-secondary py-5">
+      <div className="py-5" style={{ backgroundColor: "#0f172a" }}>
         <div className="container text-center testimonial-box">
           <img
             src={testimonials[activeTestimonial].image}

@@ -24,14 +24,21 @@ export default function Store() {
     ];
 
     return (
-        <div className="bg-dark text-light" style={{ fontFamily: "Poppins", minHeight: "100vh" }}>
-        <h2 className="text-center text-info py-4">Welcome to our Supplements Store</h2>
+        <div className="text-light" style={{ fontFamily: "Poppins", minHeight: "100vh", background: "#0F172A" }}>
+            <style>
+                {`
+                .title-glow:hover {
+                        text-shadow: 0 0 10px #00e5ff;
+                    }
+                `}
+            </style>
+        <h1 className="fw-bold text-center py-5 title-glow" style={{ color: "#00e5ff" }}> Welcome to our Supplements Store </h1>
         <div className="container pb-5">
             <div className="row g-4">
             {products.map((p) => (
                 <div key={p.id} className="col-md-6 col-lg-4">
                 
-                    <div className="store-card shadow-lg text-light" style={{ background: "#202733", borderRadius: 15, padding: 20, transition: "0.35s", border: "1px solid rgba(0,255,255,0.15)", }}>
+                    <div className="store-card shadow-lg text-light" style={{ background: "#1E293B", borderRadius: 15, padding: 20, transition: "0.35s", border: "1px solid rgba(0,255,255,0.15)", }}>
                         <img src={p.img} alt={p.name} className="img-fluid rounded mx-auto d-block mb-3" style={{ height: "250px", objectFit: "cover" }}/>
                         <h3 className="text-center text-info">{p.name}</h3>
                         <div className="mb-2 text-center">

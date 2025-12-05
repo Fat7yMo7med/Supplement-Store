@@ -47,7 +47,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="bg-dark">
+    <div style={{ background: "#0F172A" }}>
       <Toaster/>
       <style>
         {`

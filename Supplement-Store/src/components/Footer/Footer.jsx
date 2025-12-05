@@ -1,60 +1,69 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer
-      className="border-top border-secondary"style={{ background: "#0e6071" }}>
-      <div className="container py-4">
+    <footer className="border-top border-secondary" style={{ background: "#020617" }}>
+
+      <style>
+        {`
+          .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 6px;
+            transition: 0.3s;
+          }
+          .footer-link:hover {
+            color: #00e5ff;
+            transform: translateX(4px);
+          }
+        `}
+      </style>
+
+      <div className="container py-5">
         <div className="row gy-4">
           <div className="col-md-3">
             <div className="d-flex align-items-center mb-3">
               <div
-                className="d-flex justify-content-center align-items-center rounded"
-                style={{width: "40px",height: "40px",background: "linear-gradient(to right, #4ef0d2ff, #1a86d3ff)",borderRadius: "8px"}}>
-                <span className="fw-bold" style={{color:"#fff"}}>SP</span>
+                className="d-flex justify-content-center align-items-center"
+                style={{width: "40px", height: "40px", background: "linear-gradient(to right, #00e5ff, #0284c7)", borderRadius: "10px"}}>
+                <span className="fw-bold text-dark">SP</span>
               </div>
-              <h3 className="text-white fw-bold ms-2">Supplement Store</h3>
+              <h4 className="text-white fw-bold ms-2 mb-0">Supplement Store</h4>
             </div>
-            <p className="text-white">
+
+            <p className="text-secondary">
               Your ultimate destination for premium fitness supplements and professional gym equipment.
             </p>
           </div>
+
           <div className="col-md-3">
             <h5 className="text-white fw-semibold mb-3">Quick Links</h5>
             <ul className="list-unstyled">
-              {["Home", "Shop", "About Us", "Contact"].map((item) => (
-                <li  key={item}>
-                  <a href="#"
-                    className="text-decoration-none d-block mb-1" style={{ transition: "0.2s",color:"#ebebebff" }} onMouseOver={(e) => (e.target.style.color = "#fff")} onMouseOut={(e) => (e.target.style.color = "#94a3b8")}>
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li><Link to="/" className="footer-link">Home</Link></li>
+              <li><Link to="/store" className="footer-link">Shop</Link></li>
+              <li><Link to="/coaches" className="footer-link">Coaches</Link></li>
+              <li><Link to="/aboutUs" className="footer-link">Contact</Link></li>
             </ul>
           </div>
+
           <div className="col-md-3">
             <h5 className="text-white fw-semibold mb-3">Categories</h5>
             <ul className="list-unstyled">
-              {[
-                "Protein Supplements",
-                "Pre-Workout",
-                "Gym Equipment",
-                "Recovery"
-              ].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-decoration-none d-block mb-1" style={{ transition: "0.2s",color:"#ebebebff"}} onMouseOver={(e) => (e.target.style.color = "#fff")} onMouseOut={(e) => (e.target.style.color = "#94a3b8")}>
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li><Link to="/store" className="footer-link">Protein Supplements</Link></li>
+              <li><Link to="/store" className="footer-link">Pre-Workout</Link></li>
+              <li><Link to="/equipments" className="footer-link">Gym Equipment</Link></li>
+              <li><Link to="/equipments" className="footer-link">Recovery</Link></li>
             </ul>
           </div>
           <div className="col-md-3">
             <h5 className="text-white fw-semibold mb-3">Newsletter</h5>
-            <p className="text-white">Subscribe for exclusive offers and fitness tips</p>
+            <p className="text-secondary">Subscribe for exclusive offers and fitness tips</p>
+
             <div className="input-group">
-              <input type="email" className="form-control bg-dark text-white border-secondary" placeholder="Your email" style={{ borderRight: "none" }}/>
-              <button className="btn text-white" style={{backgroundColor: "#2eaec8ff",transition: "0.3s"}} onMouseOver={(e) => (e.target.style.backgroundColor = "#2eaec8ff")} onMouseOut={(e) => (e.target.style.backgroundColor = "#2eaec8ff")}>
+              <input type="email" className="form-control bg-dark text-white border-secondary" placeholder="Your email"/>
+              <button className="btn" style={{ background: "#00e5ff", color: "#020617", fontWeight: "bold"}}>
                 <i className="fas fa-paper-plane"></i>
               </button>
             </div>
@@ -64,3 +73,4 @@ export default function Footer() {
     </footer>
   );
 }
+

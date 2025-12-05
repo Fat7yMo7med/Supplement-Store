@@ -9,7 +9,7 @@ export default function PurchasesPage() {
     }, []);
 
     return (
-        <div className="bg-dark">
+        <div style={{ background: "#0F172A" }}>
         <style>
             {`
             .cart-page { min-height: 100vh; padding-top: 40px; }
