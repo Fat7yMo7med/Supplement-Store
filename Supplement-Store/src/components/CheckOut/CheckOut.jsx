@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { cartContext } from "../../context/cartContext";
 import toast, { Toaster } from "react-hot-toast";
 import { purchaseContext } from "../../context/purchasesContext";
+import styles from './checkout.module.css';
 
 export default function CheckoutPage() {
     const { cart, clearCart } = useContext(cartContext);
@@ -22,18 +23,9 @@ export default function CheckoutPage() {
         cvv: "",
     });
 
-    const [cardType, setCardType] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const grandTotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-    const toastStyle = {
-        background: "#1e293b",
-        color: "#00e5ff",
-        border: "1px solid #00e5ff",
-        padding: "16px",
-        borderRadius: "12px",
-        fontWeight: "bold",
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,10 +33,6 @@ export default function CheckoutPage() {
         if (name === "cardNumber") {
             const formatted = value.replace(/\D/g, "").substring(0, 16).replace(/(.{4})/g, "$1 ").trim();
             setForm({ ...form, [name]: formatted });
-
-            const numberValidation = cardValidator.number(formatted.replace(/\s/g, ""));
-            if (numberValidation.card) setCardType(numberValidation.card.type);
-            else setCardType(null);
         }
         else if (name === "expiry") {
             let formatted = value.replace(/\D/g, "").substring(0, 4);
@@ -57,122 +45,238 @@ export default function CheckoutPage() {
 
     const handlePlaceOrder = () => {
         if (cart.length === 0) {
-            toast.error("Your cart is empty!", { style: toastStyle });
+            toast.error("Your cart is empty!", { 
+                style: {
+                    background: "#1e293b",
+                    color: "#ff6b6b",
+                    border: "1px solid #ff6b6b",
+                    padding: "16px",
+                    borderRadius: "12px",
+                    fontWeight: "bold",
+                }
+            });
             return;
         }
 
         const requiredFields = [
-            "name", "email", "address", "city", "postalCode", "country",
-            "cardNumber", "cardName", "expiry", "cvv"
+            "name",
+            "email",
+            "address",
+            "city",
+            "postalCode",
+            "country",
+            "cardNumber",
+            "cardName",
+            "expiry",
+            "cvv"
         ];
 
         for (let field of requiredFields) {
             if (!form[field]) {
-                toast.error("Please fill all the fields!", { style: toastStyle });
+                toast.error("Please fill all the fields!", {
+                    style: {
+                        background: "#1e293b",
+                        color: "#ff6b6b",
+                        border: "1px solid #ff6b6b",
+                        padding: "16px",
+                        borderRadius: "12px",
+                        fontWeight: "bold",
+                    }
+                });
                 return;
             }
         }
 
-        toast.success("Order placed successfully!", { style: toastStyle });
-        clearCart();
-        const previousOrders = JSON.parse(localStorage.getItem("purchases")) || [];
+        setIsLoading(true);
 
-        const newOrder = {
-        id: Date.now(),
-        date: new Date().toLocaleString(),
-        items: cart,
-        total: grandTotal,
-        };
-        localStorage.setItem("purchases", JSON.stringify([...previousOrders, newOrder]));
-        
-        addPurchase(newOrder);
+        setTimeout(() => {
+            toast.success("Order placed successfully!", {
+                style: {
+                    background: "#1e293b",
+                    color: "#00e5ff",
+                    border: "1px solid #00e5ff",
+                    padding: "16px",
+                    borderRadius: "12px",
+                    fontWeight: "bold",
+                }
+            });
+            
+            clearCart();
+            const previousOrders = JSON.parse(localStorage.getItem("purchases")) || [];
 
-        setForm({
-            name: "", email: "", address: "", city: "", postalCode: "", country: "",
-            cardNumber: "", cardName: "", expiry: "", cvv: "",
-        });
-        setCardType(null);
+            const newOrder = {
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                items: [...cart],
+                total: grandTotal,
+                shippingAddress: {
+                    name: form.name,
+                    address: form.address,
+                    city: form.city,
+                    postalCode: form.postalCode,
+                    country: form.country
+                }
+            };
+            
+            localStorage.setItem("purchases", JSON.stringify([...previousOrders, newOrder]));
+            addPurchase(newOrder);
 
-        setTimeout(() => navigate("/mypurchases"), 2000);
+            setForm({
+                name: "",
+                email: "",
+                address: "",
+                city: "",
+                postalCode: "",
+                country: "",
+                cardNumber: "",
+                cardName: "",
+                expiry: "",
+                cvv: "",
+            });
+            setCardType(null);
+            setIsLoading(false);
+
+            setTimeout(() => navigate("/mypurchases"), 2000);
+        }, 1500);
     };
 
-    const getCardIcon = () => {
-        switch (cardType) {
-            case "visa": return null;
-            case "mastercard": return null;
-            case "american-express": return null; 
-            default: return null;
-        }
-    };
 
     return (
-        <div className="container-fluid p-4" style={{ background: "#0f172a", color: "#e0e0e0", minHeight: "100vh" }}>
-            <Toaster />
-            <style>
-                {`
-                .btn-cyan { background-color: #00e5ff !important; color: #0f172a !important; font-weight: bold; border: none !important; }
-                .btn-cyan:hover { box-shadow: 0 0 10px #00e5ff; }
-                .form-control { background-color: #1e293b !important; color: #e0e0e0 !important; border: 1px solid #334155 !important; }
-                .card-bg { background-color: #1e293b; color: #e0e0e0; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-                .card-icon { height: 30px; margin-left: 8px; }
-            `}
-            </style>
+        <div className={styles.checkoutContainer}>
+            <div className={styles.glowEffect}></div>
+            <Toaster toastOptions={{
+                    duration: 3000,
+                    style: {
+                        background: "#1e293b",
+                        color: "#00e5ff",
+                        border: "1px solid #00e5ff",
+                        borderRadius: "12px",
+                        padding: "16px",
+                        fontWeight: "bold",
+                    },
+                }}/>
 
-            <h2 className="text-warning mb-4">Checkout</h2>
-            <div className="row">
-                <div className="col-md-4">
-                    <div className="card-bg">
-                        <h4 className="mb-3">Your Cart</h4>
-                        {cart.length === 0 ? (
-                            <p>Your cart is empty.</p>
-                        ) : (
-                            cart.map(item => (
-                                <div key={item.id} className="d-flex justify-content-between mb-2 border-bottom pb-2">
-                                    <div><strong>{item.name}</strong> x {item.quantity}</div>
-                                    <div>${(item.price * item.quantity).toFixed(2)}</div>
+            <div className="container">
+                <div className={styles.header}>
+                    <h1 className={styles.title}>Checkout</h1>
+                    <p className={styles.subtitle}>Complete your purchase securely</p>
+                </div>
+
+                <div className={styles.checkoutGrid}>
+                    <div className={styles.card}>
+                        <div className={styles.cardHeader}>
+                            <h3 className={styles.cardTitle}>
+                                <i className="fas fa-shopping-cart"></i>
+                                Your Cart
+                            </h3>
+                        </div>
+                        <div className={styles.cardBody}>
+                            {cart.length === 0 ? (
+                                <div className={styles.cartEmpty}>
+                                    <i className="fas fa-shopping-cart"></i>
+                                    <p>Your cart is empty</p>
                                 </div>
-                            ))
-                        )}
-                        <div className="d-flex justify-content-between mt-3 border-top pt-2">
-                            <strong>Total:</strong> <strong>${grandTotal.toFixed(2)}</strong>
+                            ) : (
+                                <>
+                                    {cart.map(item => (
+                                        <div key={item.id} className={styles.cartItem}>
+                                            <div className={styles.itemInfo}>
+                                                <div className={styles.itemName}>{item.name}</div>
+                                                <div className={styles.itemQuantity}>Quantity: {item.quantity}</div>
+                                            </div>
+                                            <div className={styles.itemPrice}>
+                                                ${(item.price * item.quantity).toFixed(2)}
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div className={styles.totalSection}>
+                                        <div className={styles.totalRow}>
+                                            <span className={styles.totalLabel}>Grand Total:</span>
+                                            <span className={styles.totalAmount}>${grandTotal.toFixed(2)}</span>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
-                </div>
 
-                <div className="col-md-4">
-                    <div className="card-bg">
-                        <h4 className="mb-3">Billing Information</h4>
-                        {["name","email","address","city","postalCode","country"].map(field => (
-                            <div key={field} className="mb-3">
-                                <label className="form-label">{field.charAt(0).toUpperCase() + field.slice(1).replace("Code"," Code")}</label>
-                                <input type="text" name={field} value={form[field]} onChange={handleChange} className="form-control"/>
-                            </div>
-                        ))}
+                    <div className={styles.card}>
+                        <div className={styles.cardHeader}>
+                            <h3 className={styles.cardTitle}>
+                                <i className="fas fa-user-circle"></i>
+                                Billing Information
+                            </h3>
+                        </div>
+                        <div className={styles.cardBody}>
+                            {["name", "email", "address", "city", "postalCode", "country"].map(field => (
+                                <div key={field} className={styles.formGroup}>
+                                    <label className={styles.formLabel}>
+                                        {field.charAt(0).toUpperCase() + field.slice(1).replace("Code", " Code")}
+                                    </label>
+                                    <div className={styles.cardInputContainer}>
+                                        <input type={field === "email" ? "email" : "text"} name={field} value={form[field]} onChange={handleChange} className={styles.formInput} placeholder={`Enter your ${field.replace("Code", " code")}`} disabled={isLoading}/>
+                                        <i className={`fas fa-${field === 'email' ? 'envelope' : field === 'address' ? 'map-marker-alt' : 'user'} ${styles.inputIcon}`}></i>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
 
-                <div className="col-md-4">
-                    <div className="card-bg">
-                        <h4 className="mb-3">Payment Details</h4>
-                        <div className="mb-3 position-relative">
-                            <label className="form-label">Card Number</label>
-                            <input type="text" name="cardNumber" value={form.cardNumber} onChange={handleChange} className="form-control" placeholder="1234 5678 9012 3456"/>
+                    <div className={styles.card}>
+                        <div className={styles.cardHeader}>
+                            <h3 className={styles.cardTitle}>
+                                <i className="fas fa-credit-card"></i>
+                                Payment Details
+                            </h3>
                         </div>
-                        <div className="mb-3">
-                            <label className="form-label">Name on Card</label>
-                            <input type="text" name="cardName" value={form.cardName} onChange={handleChange} className="form-control"/>
-                        </div>
-                        <div className="row">
-                            <div className="col mb-3">
-                                <label className="form-label">Expiry</label>
-                                <input type="text" name="expiry" value={form.expiry} onChange={handleChange} className="form-control" placeholder="MM/YY"/>
+                        <div className={styles.cardBody}>
+                            <div className={styles.formGroup}>
+                                <label className={styles.formLabel}>Card Number</label>
+                                <div className={styles.cardInputContainer}>
+                                    <input type="text" name="cardNumber" value={form.cardNumber} onChange={handleChange} className={styles.formInput} placeholder="1234 5678 9012 3456" disabled={isLoading}/>
+                                    <i className="fas fa-credit-card" style={{position: 'absolute',left: '1rem',top: '50%',transform: 'translateY(-50%)',color: '#94a3b8',fontSize: '1.2rem'}}></i>
+                                </div>
                             </div>
-                            <div className="col mb-3">
-                                <label className="form-label">CVV</label>
-                                <input type="text" name="cvv" value={form.cvv} onChange={handleChange} className="form-control" placeholder="123"/>
+
+                            <div className={styles.formGroup}>
+                                <label className={styles.formLabel}>Name on Card</label>
+                                <div className={styles.cardInputContainer}>
+                                    <input type="text" name="cardName" value={form.cardName} onChange={handleChange} className={styles.formInput} placeholder="JOHN DOE" disabled={isLoading}/>
+                                    <i className={`fas fa-user ${styles.inputIcon}`}></i>
+                                </div>
                             </div>
+
+                            <div className={styles.cardRow}>
+                                <div className={styles.formGroup}>
+                                    <label className={styles.formLabel}>Expiry Date</label>
+                                    <div className={styles.cardInputContainer}>
+                                        <input type="text" name="expiry" value={form.expiry} onChange={handleChange} className={styles.formInput} placeholder="MM/YY" disabled={isLoading}/>
+                                        <i className={`fas fa-calendar-alt ${styles.inputIcon}`}></i>
+                                    </div>
+                                </div>
+                                <div className={styles.formGroup}>
+                                    <label className={styles.formLabel}>CVV</label>
+                                    <div className={styles.cardInputContainer}>
+                                        <input type="text" name="cvv" value={form.cvv} onChange={handleChange} className={styles.formInput} placeholder="123" maxLength="4" disabled={isLoading}/>
+                                        <i className={`fas fa-lock ${styles.inputIcon}`}></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button className={styles.submitButton}  onClick={handlePlaceOrder} disabled={isLoading || cart.length === 0}>
+                                {isLoading ? (
+                                    <>
+                                        <i className={`fas fa-spinner ${styles.buttonIcon} ${styles.loading}`}></i>
+                                        Processing...
+                                    </>
+                                ) : (
+                                    <>
+                                        <i className={`fas fa-shopping-cart ${styles.buttonIcon}`}></i>
+                                        Place Order - ${grandTotal.toFixed(2)}
+                                    </>
+                                )}
+                            </button>
                         </div>
-                        <button className="btn btn-cyan w-100 mt-3" onClick={handlePlaceOrder}>Place Order (${grandTotal.toFixed(2)})</button>
                     </div>
                 </div>
             </div>
