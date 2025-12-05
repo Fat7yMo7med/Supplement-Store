@@ -4,6 +4,7 @@ import img1 from "../../assets/Images/product_16.jpg";
 import img2 from "../../assets/Images/product_17.jpg";
 import img3 from "../../assets/Images/product_19.jpg";
 import img4 from "../../assets/Images/product_20.jpg";
+import styles from './store.module.css';
 
 export default function Store() {
     const navigate = useNavigate();
@@ -24,35 +25,55 @@ export default function Store() {
     ];
 
     return (
-        <div className="text-light" style={{ fontFamily: "Poppins", minHeight: "100vh", background: "#0F172A" }}>
-            <style>
-                {`
-                .title-glow:hover {
-                        text-shadow: 0 0 10px #00e5ff;
-                    }
-                `}
-            </style>
-        <h1 className="fw-bold text-center py-5 title-glow" style={{ color: "#00e5ff" }}> Welcome to our Supplements Store </h1>
-        <div className="container pb-5">
-            <div className="row g-4">
-            {products.map((p) => (
-                <div key={p.id} className="col-md-6 col-lg-4">
-                
-                    <div className="store-card shadow-lg text-light" style={{ background: "#1E293B", borderRadius: 15, padding: 20, transition: "0.35s", border: "1px solid rgba(0,255,255,0.15)", }}>
-                        <img src={p.img} alt={p.name} className="img-fluid rounded mx-auto d-block mb-3" style={{ height: "250px", objectFit: "cover" }}/>
-                        <h3 className="text-center text-info">{p.name}</h3>
-                        <div className="mb-2 text-center">
-                            <span className="h5 text-cyan me-2">${p.price}</span>
-                            <small className="text-warning">(was ${p.oldPrice})</small>
-                        </div>
-                        <button className="btn btn-info w-100 text-dark mt-3" onClick={() => navigate(`/product/${p.id}`, { state: { product: p } })}>
-                            <i className="fa fa-cart-plus me-2"></i>View Details
-                        </button>
-                    </div>
+        <div className={styles.storeContainer}>
+            <div className={styles.glowEffect}></div>
+
+            <div className="container">
+                <div className={styles.header}>
+                    <h1 className={styles.title}>Welcome to our Supplements Store</h1>
+                    <p className={styles.subtitle}>Premium supplements for peak performance</p>
                 </div>
-            ))}
+
+                <div className={styles.productsGrid}>
+                    {products.length === 0 ? (
+                        <div className={styles.emptyState}>
+                            <i className={`fas fa-box-open ${styles.emptyIcon}`}></i>
+                            <h2 className={styles.emptyTitle}>No Products Available</h2>
+                            <p className={styles.emptyText}>
+                                We're currently updating our inventory. Please check back soon!
+                            </p>
+                        </div>
+                    ) : (
+                        products.map((product) => (
+                            <div key={product.id} className={styles.productCard}>
+
+                                <div className={styles.productImageContainer}>
+                                    <img src={product.img} alt={product.name} className={styles.productImage}/>
+                                </div>
+
+                                <div className={styles.productInfo}>
+                                    <h3 className={styles.productName}>{product.name}</h3>
+                                    
+                                    <div className={styles.priceContainer}>
+                                        <span className={styles.currentPrice}>
+                                            ${product.price.toFixed(2)}
+                                        </span>
+                                        <span className={styles.oldPrice}>
+                                            ${product.oldPrice.toFixed(2)}
+                                        </span>
+                                    </div>
+
+                                    <button className={styles.detailsButton} onClick={() => navigate(`/product/${product.id}`, { 
+                                            state: { product: product } })}>
+                                        <i className="fas fa-cart-plus"></i>
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
         </div>
-    </div>
     );
 }
