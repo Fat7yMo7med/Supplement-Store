@@ -149,7 +149,7 @@
 
 .specialtyBadge {
     position: absolute;
-    top: 1rem;
+    bottom: 1rem;
     left: 1rem;
     background: linear-gradient(90deg, #00e5ff, #00bcd4);
     color: #0f172a;
