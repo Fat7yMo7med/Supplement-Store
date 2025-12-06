@@ -6,6 +6,14 @@ import img1 from "../../assets/images/product_16.jpg";
 import img2 from "../../assets/images/product_17.jpg";
 import img3 from "../../assets/images/product_19.jpg";
 import img4 from "../../assets/images/product_20.jpg";
+import img5 from "../../assets/Images/BCAA Powder.jpg";
+import img6 from "../../assets/Images/Pre-Workout.jpg";
+import img7 from "../../assets/Images/Glutamine.png";
+import img8 from "../../assets/Images/Omega 3 Capsules.jpg";
+import img9 from "../../assets/Images/Vitamin D3.jpg";
+import img10 from "../../assets/Images/Multivitamins.jpg";
+import img11 from "../../assets/Images/Weight Gainer.jpg";
+import img12 from "../../assets/Images/Electrolyte Drink.jpg";
 import styles from './ProductDetails.module.css';
 
 export default function ProductPage() {
@@ -67,44 +75,108 @@ export default function ProductPage() {
     },
     {
       id: 5,
-      img: img1,
+      img: img5,
       name: "BCAA Powder",
       price: 34.99,
       oldPrice: 49.99,
       description: "Supports muscle recovery and reduces fatigue during workouts.",
       additionalInfo: "Net weight: 400g. Mix 1 scoop with water before or after exercise.",
-      reviews: [],
+      reviews: [
+        { name: "Ahmed Fathy", rating: 5, comment: "Excellent for recovery, I feel less sore after training." },
+        { name: "Mostafa Ali", rating: 4, comment: "Good flavor and helps during long workouts." },
+      ],
     },
     {
       id: 6,
-      img: img2,
+      img: img6,
       name: "Pre-Workout",
       price: 44.99,
       oldPrice: 59.99,
       description: "Boosts energy, focus, and endurance during workouts.",
       additionalInfo: "Net weight: 350g. Mix 1 scoop with water 20-30 minutes before training.",
-      reviews: [],
+      reviews: [
+        { name: "Karim Hassan", rating: 5, comment: "Amazing energy and focus! Best pre-workout I've tried." },
+        { name: "Yousef Nabil", rating: 4, comment: "Strong pump and good endurance, but flavor is average." },
+      ],
     },
     {
       id: 7,
-      img: img3,
+      img: img7,
       name: "Glutamine",
       price: 24.99,
       oldPrice: 34.99,
       description: "Supports muscle recovery, immune system, and gut health.",
       additionalInfo: "Net weight: 500g. Take 5g daily after workouts.",
-      reviews: [],
+      reviews: [
+        { name: "Mahmoud Adel", rating: 5, comment: "Very good for muscle recovery and digestion." },
+        { name: "Omar Tarek", rating: 4, comment: "Helped reduce muscle fatigue after heavy workouts." },
+      ],
     },
     {
       id: 8,
-      img: img4,
+      img: img8,
       name: "Omega 3 Capsules",
       price: 29.99,
       oldPrice: 39.99,
       description: "Supports heart health, brain function, and joint health.",
       additionalInfo: "Contains 1000mg fish oil per capsule. Take 2 capsules daily with meals.",
-      reviews: [],
+      reviews: [
+        { name: "Salma Ahmed", rating: 5, comment: "Great for joints and overall health. Highly recommended!" },
+        { name: "Hassan Ibrahim", rating: 4, comment: "Good quality and no bad aftertaste." },
+      ],
     },
+    {
+      id: 9,
+      img: img9,
+      name: "Vitamin D3",
+      price: 19.99,
+      oldPrice: 29.99,
+      description: "Supports bone health, immunity, and muscle function.",
+      additionalInfo: "High potency Vitamin D3. Take 1 capsule daily.",
+      reviews: [
+        { name: "Omar Khaled", rating: 5, comment: "Very good for immunity, I feel more active." },
+        { name: "Nour Ahmed", rating: 4, comment: "Great quality and easy to swallow." },
+      ],
+    },
+    {
+      id: 10,
+      img: img10,
+      name: "Multivitamins",
+      price: 27.99,
+      oldPrice: 37.99,
+      description: "Complete daily vitamin formula to support overall health.",
+      additionalInfo: "One tablet daily after meals.",
+      reviews: [
+        { name: "Mariam Adel", rating: 5, comment: "Perfect daily supplement, highly recommended!" },
+        { name: "Hassan Mostafa", rating: 4, comment: "Good energy boost throughout the day." },
+      ],
+    },
+    {
+      id: 11,
+      img: img11,
+      name: "Weight Gainer",
+      price: 54.99,
+      oldPrice: 69.99,
+      description: "High-calorie mass gainer to support muscle and weight gain.",
+      additionalInfo: "Take 2 scoops daily with milk or water.",
+      reviews: [
+        { name: "Ahmed Samir", rating: 5, comment: "Gained 4kg in one month, amazing results!" },
+        { name: "Youssef Tarek", rating: 4, comment: "Good taste and effective for bulking." },
+      ],
+    },
+    {
+      id: 12,
+      img: img12,
+      name: "Electrolyte Drink",
+      price: 14.99,
+      oldPrice: 22.99,
+      description: "Rehydrates your body and replaces lost minerals during training.",
+      additionalInfo: "Mix 1 scoop with 500ml water during workouts.",
+      reviews: [
+        { name: "Salma Hassan", rating: 5, comment: "Perfect hydration during intense workouts!" },
+        { name: "Karim Nabil", rating: 4, comment: "Refreshing taste and very effective." },
+      ],
+    }
   ];
 
   const [selected, setSelected] = useState(product || products[0]);
@@ -121,7 +193,7 @@ export default function ProductPage() {
     }
   }, [product]);
 
-  const related = products.filter((p) => p.id !== selected.id);
+  const related = products.filter((p) => p.id !== selected.id).sort(() => 0.5 - Math.random()).slice(0, 4);
 
   const handleAddToCart = () => {
     addToCart({ ...selected, quantity: qty });
@@ -143,10 +215,7 @@ export default function ProductPage() {
     return (
       <div className={styles.starRating}>
         {[...Array(5)].map((_, index) => (
-          <i 
-            key={index} 
-            className={`fas fa-star ${index < rating ? styles.star : 'text-secondary'}`}
-          ></i>
+          <i key={index} className={`fas fa-star ${index < rating ? styles.star : 'text-secondary'}`}></i>
         ))}
       </div>
     );
@@ -185,9 +254,7 @@ export default function ProductPage() {
             <div className={styles.priceSection}>
               <span className={styles.currentPrice}>${selected.price.toFixed(2)}</span>
               {selected.oldPrice && (
-                <>
-                  <span className={styles.oldPrice}>${selected.oldPrice.toFixed(2)}</span>
-                </>
+                <span className={styles.oldPrice}>${selected.oldPrice.toFixed(2)}</span>
               )}
             </div>
 
@@ -198,7 +265,7 @@ export default function ProductPage() {
                   <i className="fas fa-minus"></i>
                 </button>
                 <input type="number" className={styles.quantityInput} value={qty} onChange={e => setQty(Math.max(1, Number(e.target.value) || 1))} min="1"/>
-                <button className={styles.quantityButton}onClick={() => setQty(q => q + 1)}>
+                <button className={styles.quantityButton} onClick={() => setQty(q => q + 1)}>
                   <i className="fas fa-plus"></i>
                 </button>
               </div>
@@ -213,35 +280,23 @@ export default function ProductPage() {
 
             <div className={styles.tabsSection}>
               <div className={styles.tabsNav}>
-                <button className={`${styles.tabButton} ${tab === "description" ? styles.active : ""}`} onClick={() => setTab("description")}>
-                  Description
-                </button>
-                <button className={`${styles.tabButton} ${tab === "additional" ? styles.active : ""}`} onClick={() => setTab("additional")}>
-                  Additional Info
-                </button>
-                <button className={`${styles.tabButton} ${tab === "reviews" ? styles.active : ""}`} onClick={() => setTab("reviews")}>
-                  Reviews ({selected.reviews?.length || 0})
-                </button>
+                <button className={`${styles.tabButton} ${tab === "description" ? styles.active : ""}`} onClick={() => setTab("description")}>Description</button>
+                <button className={`${styles.tabButton} ${tab === "additional" ? styles.active : ""}`} onClick={() => setTab("additional")}>Additional Info</button>
+                <button className={`${styles.tabButton} ${tab === "reviews" ? styles.active : ""}`} onClick={() => setTab("reviews")}>Reviews ({selected.reviews?.length || 0})</button>
               </div>
 
               <div className={styles.tabContent}>
-                {tab === "description" && (
-                  <p className={styles.tabText}>{selected.description}</p>
-                )}
-                {tab === "additional" && (
-                  <p className={styles.tabText}>{selected.additionalInfo}</p>
-                )}
+                {tab === "description" && <p className={styles.tabText}>{selected.description}</p>}
+                {tab === "additional" && <p className={styles.tabText}>{selected.additionalInfo}</p>}
                 {tab === "reviews" && (
                   <div className={styles.reviewsList}>
-                    {selected.reviews?.length ? (
-                      selected.reviews.map((rev, idx) => (
-                        <div key={idx} className={styles.reviewItem}>
-                          <div className={styles.reviewName}>{rev.name}</div>
-                          <StarRating rating={rev.rating} />
-                          <p className={styles.reviewComment}>{rev.comment}</p>
-                        </div>
-                      ))
-                    ) : (
+                    {selected.reviews?.length ? selected.reviews.map((rev, idx) => (
+                      <div key={idx} className={styles.reviewItem}>
+                        <div className={styles.reviewName}>{rev.name}</div>
+                        <StarRating rating={rev.rating} />
+                        <p className={styles.reviewComment}>{rev.comment}</p>
+                      </div>
+                    )) : (
                       <div className={styles.noReviews}>
                         <i className="fas fa-comment-slash fa-2x mb-3"></i>
                         <p>No reviews yet. Be the first to review this product!</p>
@@ -253,11 +308,12 @@ export default function ProductPage() {
             </div>
           </div>
         </div>
+
         {related.length > 0 && (
           <div className={styles.relatedSection}>
             <h2 className={styles.relatedTitle}>Related Products</h2>
             <div className={styles.relatedGrid}>
-              {related.slice(0, 4).map(p => (
+              {related.map(p => (
                 <div key={p.id} className={styles.relatedCard} onClick={() => navigate(`/product/${p.id}`, { state: { product: p } })}>
                   <img src={p.img} alt={p.name} className={styles.relatedImage}/>
                   <div className={styles.relatedInfo}>

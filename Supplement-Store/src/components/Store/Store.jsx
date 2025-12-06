@@ -4,6 +4,14 @@ import img1 from "../../assets/Images/product_16.jpg";
 import img2 from "../../assets/Images/product_17.jpg";
 import img3 from "../../assets/Images/product_19.jpg";
 import img4 from "../../assets/Images/product_20.jpg";
+import img5 from "../../assets/Images/BCAA Powder.jpg";
+import img6 from "../../assets/Images/Pre-Workout.jpg";
+import img7 from "../../assets/Images/Glutamine.png";
+import img8 from "../../assets/Images/Omega 3 Capsules.jpg";
+import img9 from "../../assets/Images/Vitamin D3.jpg";
+import img10 from "../../assets/Images/Multivitamins.jpg";
+import img11 from "../../assets/Images/Weight Gainer.jpg";
+import img12 from "../../assets/Images/Electrolyte Drink.jpg";
 import styles from './store.module.css';
 
 export default function Store() {
@@ -14,14 +22,14 @@ export default function Store() {
         { id: 2, img: img2, name: "Whey Protein", price: 39.99, oldPrice: 59.99 },
         { id: 3, img: img3, name: "Protein Bar", price: 19.99, oldPrice: 29.99 },
         { id: 4, img: img4, name: "Creatine", price: 29.99, oldPrice: 39.99 },
-        { id: 5, img: img1, name: "BCAA Powder", price: 34.99, oldPrice: 49.99 },
-        { id: 6, img: img2, name: "Pre-Workout", price: 44.99, oldPrice: 59.99 },
-        { id: 7, img: img3, name: "Glutamine", price: 24.99, oldPrice: 34.99 },
-        { id: 8, img: img4, name: "Omega 3 Capsules", price: 29.99, oldPrice: 39.99 },
-        { id: 9, img: img1, name: "Vitamin D3", price: 14.99, oldPrice: 24.99 },
-        { id: 10, img: img2, name: "Multivitamins", price: 19.99, oldPrice: 29.99 },
-        { id: 11, img: img3, name: "Weight Gainer", price: 54.99, oldPrice: 74.99 },
-        { id: 12, img: img4, name: "Electrolyte Drink", price: 9.99, oldPrice: 14.99 },
+        { id: 5, img: img5, name: "BCAA Powder", price: 34.99, oldPrice: 49.99 },
+        { id: 6, img: img6, name: "Pre-Workout", price: 44.99, oldPrice: 59.99 },
+        { id: 7, img: img7, name: "Glutamine", price: 24.99, oldPrice: 34.99 },
+        { id: 8, img: img8, name: "Omega 3 Capsules", price: 29.99, oldPrice: 39.99 },
+        { id: 9, img: img9, name: "Vitamin D3", price: 14.99, oldPrice: 24.99 },
+        { id: 10, img: img10, name: "Multivitamins", price: 19.99, oldPrice: 29.99 },
+        { id: 11, img: img11, name: "Weight Gainer", price: 54.99, oldPrice: 74.99 },
+        { id: 12, img: img12, name: "Electrolyte Drink", price: 9.99, oldPrice: 14.99 },
     ];
 
     return (

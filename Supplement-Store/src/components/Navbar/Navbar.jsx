@@ -16,7 +16,7 @@ export default function Navbar() {
     return (
         <nav className={`navbar navbar-expand-lg ${style.navbarCustom}`}>
             <div className="container">
-                <NavLink to="" className={`navbar-brand fw-bold ${style.brand}`}>
+                <NavLink to="aboutUs" className={`navbar-brand fw-bold ${style.brand}`}>
                     <i className="fas fa-dumbbell me-2"></i>
                     Supplement Store
                 </NavLink>

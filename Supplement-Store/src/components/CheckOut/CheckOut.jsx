@@ -133,7 +133,6 @@ export default function CheckoutPage() {
                 expiry: "",
                 cvv: "",
             });
-            setCardType(null);
             setIsLoading(false);
 
             setTimeout(() => navigate("/mypurchases"), 2000);

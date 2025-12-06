@@ -103,8 +103,7 @@ const App = () => {
       id: 1,
       name: "Alex Rodriguez",
       role: "Professional Athlete",
-      content:
-        "POWERFUEL supplements transformed my recovery and boosted performance.",
+      content:"Supplement Store transformed my recovery and boosted performance.",
       image: "../../src/assets/images/testimonial-2.jpg",
     },
     {
