@@ -25,7 +25,7 @@ import { Toaster } from 'react-hot-toast'
 import CheckOut from './components/CheckOut/CheckOut'
 import PurchaseContextProvider from './context/purchasesContext'
 import MyPurchases from '../src/components/MyPurchases/MyPurchases'
-
+import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton'
 function App() {
 
   const router = createBrowserRouter([
@@ -59,6 +59,7 @@ function App() {
           <UserContextProvider>
             <RouterProvider router={router} />
             <Toaster/>
+            <ScrollToTopButton />
           </UserContextProvider>
         </CartContextProvider>
       </PurchaseContextProvider>
