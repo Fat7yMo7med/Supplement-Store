@@ -6,7 +6,7 @@ export default function NotFound() {
     return (
         <div>
             <div className='w-100 m-auto d-flex justify-content-center'>
-                <img src={notFound} className='w-100' alt="Image Not Found" />
+                <img src={notFound} className='w-100' alt="Image NotFound" />
             </div>
         </div>
     )
