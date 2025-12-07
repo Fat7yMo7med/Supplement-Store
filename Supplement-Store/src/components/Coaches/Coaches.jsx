@@ -24,7 +24,7 @@ function Coaches() {
       experience: "6+ years",
       clients: "200+ clients",
       certifications: "3 certifications",
-      image: "https://plus.unsplash.com/premium_photo-1661898576032-fd26e3409175?q=80&w=1170&auto=format&fit=crop"
+      image:"https://plus.unsplash.com/premium_photo-1661898576032-fd26e3409175?q=80&w=1170&auto=format&fit=crop"
     },
     {
       id: 3,
