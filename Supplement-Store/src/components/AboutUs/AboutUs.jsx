@@ -132,7 +132,7 @@ function AboutUs() {
               </div>
 
               <div className={styles.teamMember}>
-                <img src="https://images.unsplash.com/photo-1639496908117-6633c4aa9592?w=300" alt="Karim Samy" className={styles.memberImage}/>
+                <img src="https://images.stockcake.com/public/e/f/c/efcc3abe-b1e3-40b5-bd05-52beae0c0eba_large/confident-fitness-coach-stockcake.jpg" alt="Karim Samy" className={styles.memberImage}/>
                 <h4 className={styles.memberName}>Karim Samy</h4>
                 <p className={styles.memberRole}>Strength & Conditioning Coach</p>
               </div>

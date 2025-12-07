@@ -417,7 +417,7 @@ function CoachDetails() {
       experience: "9+ years",
       clients: "220+ clients",
       certifications: "8 certifications",
-      image: "https://images.unsplash.com/photo-1639496908117-6633c4aa9592?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.stockcake.com/public/e/f/c/efcc3abe-b1e3-40b5-bd05-52beae0c0eba_large/confident-fitness-coach-stockcake.jpg",
       phone: "+20 123 456 7896",
       email: "karim.samy@example.com",
       hourlyRate: "$65/hour",
