@@ -252,6 +252,7 @@
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     border-color: rgba(0, 229, 255, 0.4);
+    cursor: pointer;
 }
 
 .productImageContainer,

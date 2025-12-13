@@ -18,7 +18,7 @@ export default function Navbar() {
             <div className="container">
                 <NavLink to="aboutUs" className={`navbar-brand fw-bold ${style.brand}`}>
                     <i className="fas fa-dumbbell me-2"></i>
-                    Supplement Store
+                    POWERFUEL
                 </NavLink>
                 
                 <button className={`navbar-toggler ${style.navbarToggler}`} data-bs-toggle="collapse" data-bs-target="#mainNavbar">

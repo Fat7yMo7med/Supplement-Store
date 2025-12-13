@@ -103,7 +103,7 @@ const Home = () => {
       id: 1,
       name: "Alex Rodriguez",
       role: "Professional Athlete",
-      content:"Supplement Store transformed my recovery and boosted performance.",
+      content:"POWERFUEL transformed my recovery and boosted performance.",
       image: "../../src/assets/images/testimonial-2.jpg",
     },
     {
@@ -252,7 +252,7 @@ const Home = () => {
         </div>
 
         <div className={styles.productsSection}>
-          <h2 className={styles.sectionTitle}><span className="text-white">🔥</span> Best Sellers</h2>
+          <h2 className={styles.sectionTitle}>Best Sellers</h2>
           <div className="row">
             {filteredProducts.map((p) => (
               <div key={p.id} className="col-md-3 mb-4">
@@ -296,11 +296,11 @@ const Home = () => {
         </div>
 
         <div className={styles.workoutSection}>
-          <h2 className={styles.sectionTitle}><span className="text-white">🏋️</span> Elite Workout Programs</h2>
+          <h2 className={styles.sectionTitle}>Elite Workout Programs</h2>
           <div className="row">
             {workoutPrograms.map((program, index) => (
               <div key={index} className="col-md-4 mb-4">
-                <div className={styles.workoutCard}>
+                <div className={styles.workoutCard} onClick={() => navigate(`/program/${index + 1}`)}>
                   <div className={styles.workoutImageContainer}>
                     <img src={program.img} className={styles.workoutImage} alt={program.title} />
                   </div>
@@ -315,11 +315,11 @@ const Home = () => {
         </div>
 
         <div className={styles.blogSection}>
-          <h2 className={styles.sectionTitle}><span className="text-white">📝</span> Latest Articles</h2>
+          <h2 className={styles.sectionTitle}>Latest Articles</h2>
           <div className="row">
             {blogPosts.map((blog, index) => (
               <div key={index} className="col-md-4 mb-4">
-                <div className={styles.blogCard}>
+                <div className={styles.blogCard} onClick={() => navigate(`articles/${index + 1}`)}>
                   <div className={styles.blogImageContainer}>
                     <img src={blog.img} className={styles.blogImage} alt={blog.title} />
                   </div>

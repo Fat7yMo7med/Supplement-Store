@@ -16,7 +16,7 @@ function AboutUs() {
         </button>
 
         <div className={styles.header}>
-          <h1 className={styles.title}>About SUPPLEMENT STORE</h1>
+          <h1 className={styles.title}>About POWERFUEL</h1>
           <p className={styles.subtitle}>
             Premium Fitness • Modern Coaching • Athlete Performance
           </p>
@@ -29,13 +29,13 @@ function AboutUs() {
               Our Story
             </h3>
             <p className={styles.cardText}>
-              Supplement Store started as a small vision: creating a place where athletes
+              POWERFUEL started as a small vision: creating a place where athletes
               and beginners can get high-quality supplements and elite training
               guidance. Today, we help thousands achieve strength, confidence, and a healthier life.
             </p>
             <p className={styles.cardText}>
               Built by a team of athletes, coaches, and nutrition specialists,
-              SUPPLEMENT STORE focuses on science-based solutions, reliability, and real results.
+              POWERFUEL focuses on science-based solutions, reliability, and real results.
               Our mission is to make fitness accessible, enjoyable, and life-changing.
             </p>
           </div>

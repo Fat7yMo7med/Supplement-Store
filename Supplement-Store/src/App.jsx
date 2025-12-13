@@ -26,6 +26,11 @@ import CheckOut from './components/CheckOut/CheckOut'
 import PurchaseContextProvider from './context/purchasesContext'
 import MyPurchases from '../src/components/MyPurchases/MyPurchases'
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton'
+import Articles from './components/Articles/Articles'
+import Program from './components/Program/Program'
+
+
+
 function App() {
 
   const router = createBrowserRouter([
@@ -47,6 +52,8 @@ function App() {
         { path: 'cart', element:<ProtectedRoute> <Cart/> </ProtectedRoute>},
         { path: 'checkout', element:<ProtectedRoute> <CheckOut/> </ProtectedRoute>},
         { path: '/mypurchases', element:<ProtectedRoute> <MyPurchases/> </ProtectedRoute>},
+        { path: 'articles/:id', element: <Articles/>},
+        { path: 'program/:id', element: <Program/>},
         { path: '*', element: <NotFound/> },
       ]
     }

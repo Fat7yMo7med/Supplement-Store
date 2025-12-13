@@ -28,9 +28,9 @@ export default function Footer() {
               <div
                 className="d-flex justify-content-center align-items-center"
                 style={{width: "40px", height: "40px", background: "linear-gradient(to right, #00e5ff, #0284c7)", borderRadius: "10px"}}>
-                <span className="fw-bold text-dark">SP</span>
+                <span className="fw-bold text-dark">PF</span>
               </div>
-              <h4 className="text-white fw-bold ms-2 mb-0">Supplement Store</h4>
+              <h4 className="text-white fw-bold ms-2 mb-0">POWERFUEL</h4>
             </div>
 
             <p className="text-secondary">
