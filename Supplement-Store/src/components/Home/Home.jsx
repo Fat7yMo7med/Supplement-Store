@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import styles from './Home.module.css'; 
 
-const App = () => {
+const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [cartItems, setCartItems] = useState(0);
@@ -239,8 +239,8 @@ const App = () => {
 
         <div className={styles.featuresSection}>
           <div className="row text-center">
-            {features.map((f, i) => (
-              <div key={i} className="col-md-3 mb-4">
+            {features.map((f, index) => (
+              <div key={index} className="col-md-3 mb-4">
                 <div className={styles.featureCard}>
                   <i className={`fa ${f.icon} ${styles.featureIcon}`} />
                   <h5 className={styles.featureTitle}>{f.title}</h5>
@@ -298,15 +298,15 @@ const App = () => {
         <div className={styles.workoutSection}>
           <h2 className={styles.sectionTitle}><span className="text-white">🏋️</span> Elite Workout Programs</h2>
           <div className="row">
-            {workoutPrograms.map((p, i) => (
-              <div key={i} className="col-md-4 mb-4">
+            {workoutPrograms.map((program, index) => (
+              <div key={index} className="col-md-4 mb-4">
                 <div className={styles.workoutCard}>
                   <div className={styles.workoutImageContainer}>
-                    <img src={p.img} className={styles.workoutImage} alt={p.title} />
+                    <img src={program.img} className={styles.workoutImage} alt={program.title} />
                   </div>
                   <div className={styles.workoutBody}>
-                    <h4 className={styles.workoutTitle}>{p.title}</h4>
-                    <p className={styles.workoutDesc}>{p.desc}</p>
+                    <h4 className={styles.workoutTitle}>{program.title}</h4>
+                    <p className={styles.workoutDesc}>{program.desc}</p>
                   </div>
                 </div>
               </div>
@@ -317,17 +317,17 @@ const App = () => {
         <div className={styles.blogSection}>
           <h2 className={styles.sectionTitle}><span className="text-white">📝</span> Latest Articles</h2>
           <div className="row">
-            {blogPosts.map((b, i) => (
-              <div key={i} className="col-md-4 mb-4">
+            {blogPosts.map((blog, index) => (
+              <div key={index} className="col-md-4 mb-4">
                 <div className={styles.blogCard}>
                   <div className={styles.blogImageContainer}>
-                    <img src={b.img} className={styles.blogImage} alt={b.title} />
+                    <img src={blog.img} className={styles.blogImage} alt={blog.title} />
                   </div>
                   <div className={styles.blogBody}>
-                    <h4 className={styles.blogTitle}>{b.title}</h4>
+                    <h4 className={styles.blogTitle}>{blog.title}</h4>
                     <p className={styles.blogDate}>
                       <i className="fa fa-calendar me-2"></i>
-                      {b.date}
+                      {blog.date}
                     </p>
                   </div>
                 </div>
@@ -357,4 +357,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;

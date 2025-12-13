@@ -8,8 +8,8 @@ export default function CartPage() {
   const { cart, addToCart, decreaseQuantity, removeFromCart, clearCart } = useContext(cartContext);
   const navigate = useNavigate();
 
-  const grandTotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const itemsCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const grandTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const itemsCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const handleRemove = (id, name) => {
     removeFromCart(id);
